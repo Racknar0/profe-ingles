@@ -16,6 +16,13 @@ BANCO_PATH = BASE_DIR / "data" / "banco.json"
 CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
 PROGRESO_PATH = Path(__file__).resolve().parent / "progreso.json"
 UI_PATH = Path(__file__).resolve().parent / "popup_ui.html"
+ICON_ICO_PATH = Path(__file__).resolve().parent / "icon.ico"
+ICON_PNG_PATH = BASE_DIR / "app" / "web" / "icon-192.png"
+
+try:
+    from app.pc.tray import TrayIcon
+except ImportError:
+    from tray import TrayIcon
 
 
 def cargar_json(ruta: Path, default: dict) -> dict:
@@ -71,6 +78,7 @@ class EntrenadorState:
         self.lock = threading.Lock()
         self.evento_espera = threading.Event()
         self.ronda_actual: list[dict] = []
+        self.salir = False
 
     def obtener_items(self) -> list[dict]:
         """Construye la lista unificada de vocabulario y frases desde data/banco.json."""
@@ -136,6 +144,25 @@ class EntrenadorState:
             self.siguiente_disparo = time.time() + max(1, mins) * 60
         self.evento_espera.set()
 
+    def cambiar_intervalo(self, minutos: int) -> None:
+        """Guarda el nuevo intervalo en config.json y actualiza el temporizador."""
+        with self.lock:
+            self.config["intervalo_minutos"] = int(minutos)
+            guardar_json(CONFIG_PATH, self.config)
+            self.siguiente_disparo = time.time() + max(1, int(minutos)) * 60
+        self.evento_espera.set()
+
+    def practicar_ahora(self) -> None:
+        """Dispara una ronda de práctica de forma inmediata."""
+        with self.lock:
+            self.siguiente_disparo = time.time()
+        self.evento_espera.set()
+
+    def detener(self) -> None:
+        """Finaliza el proceso en segundo plano limpiamente."""
+        self.salir = True
+        self.evento_espera.set()
+
 
 def crear_handler(state: EntrenadorState):
     """Crea el manejador HTTP para servir la UI moderna y las acciones del pop-up."""
@@ -160,6 +187,13 @@ def crear_handler(state: EntrenadorState):
                 self.send_header("Content-Length", str(len(html)))
                 self.end_headers()
                 self.wfile.write(html)
+            elif self.path == "/icon.png":
+                icon_bytes = ICON_PNG_PATH.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "image/png")
+                self.send_header("Content-Length", str(len(icon_bytes)))
+                self.end_headers()
+                self.wfile.write(icon_bytes)
             elif self.path == "/api/ronda":
                 self._json(
                     200,
@@ -181,6 +215,9 @@ def crear_handler(state: EntrenadorState):
                 self._json(200, {"ok": True})
             elif self.path == "/api/postpone":
                 state.programar(data.get("minutos"))
+                self._json(200, {"ok": True})
+            elif self.path == "/api/intervalo":
+                state.cambiar_intervalo(int(data.get("minutos", 45)))
                 self._json(200, {"ok": True})
             else:
                 self.send_error(404)
@@ -263,12 +300,21 @@ def main() -> None:
     puerto = server.server_address[1]
     threading.Thread(target=server.serve_forever, daemon=True).start()
 
+    tray = TrayIcon(
+        icon_path=ICON_ICO_PATH,
+        on_practicar=state.practicar_ahora,
+        on_intervalo=state.cambiar_intervalo,
+        get_intervalo=lambda: int(state.config.get("intervalo_minutos", 45)),
+        on_salir=state.detener,
+    )
+    tray.iniciar()
+
     if args.now or state.config.get("mostrar_al_iniciar", True):
         state.siguiente_disparo = time.time()
     else:
         state.programar()
 
-    while True:
+    while not state.salir:
         espera = state.siguiente_disparo - time.time()
         if espera > 0:
             state.evento_espera.clear()
@@ -285,6 +331,8 @@ def main() -> None:
         proc = abrir_ventana_moderna(puerto, navegador)
         mantener_siempre_encima(proc)
         proc.wait()
+
+    tray.remover()
 
 
 if __name__ == "__main__":

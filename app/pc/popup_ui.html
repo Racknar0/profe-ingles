@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Profe Inglés — Entrenador</title>
+  <link rel="icon" href="/icon.png" type="image/png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -64,6 +65,23 @@
       color: var(--muted);
       font-size: 14px;
       font-weight: 600;
+    }
+
+    .interval-select {
+      font-family: inherit;
+      background: rgba(30, 41, 59, 0.9);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .interval-select:hover {
+      border-color: var(--accent);
     }
 
     .dots {
@@ -233,6 +251,12 @@
   <header class="topbar">
     <span id="tag-pill" class="pill">Cargando...</span>
     <div class="meta-right">
+      <select id="interval-select" class="interval-select" title="Frecuencia del recordatorio">
+        <option value="15">⏱ Cada 15 min</option>
+        <option value="30">⏱ Cada 30 min</option>
+        <option value="45">⏱ Cada 45 min</option>
+        <option value="60">⏱ Cada 60 min</option>
+      </select>
       <span id="round-counter">1 / 2</span>
       <div id="level-dots" class="dots" title="Nivel de dominio (0-5)"></div>
     </div>
@@ -372,11 +396,23 @@
       }
     });
 
+    document.getElementById("interval-select").addEventListener("change", async (e) => {
+      const mins = Number(e.target.value);
+      state.intervalo = mins;
+      document.getElementById("btn-later").textContent = `⏸ ${mins} min`;
+      await fetch("/api/intervalo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ minutos: mins })
+      });
+    });
+
     fetch("/api/ronda")
       .then(r => r.json())
       .then(data => {
         state.items = data.items || [];
         state.intervalo = data.intervalo_minutos || 45;
+        document.getElementById("interval-select").value = String(state.intervalo);
         document.getElementById("btn-later").textContent = `⏸ ${state.intervalo} min`;
         renderCurrent();
       });
