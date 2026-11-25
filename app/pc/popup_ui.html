@@ -640,7 +640,17 @@
           extraEl.appendChild(div);
         });
       } else if (item.extra) {
-        extraEl.textContent = item.extra;
+        const pEn = document.createElement("div");
+        pEn.textContent = item.extra;
+        extraEl.appendChild(pEn);
+        if (item.extra_es) {
+          const pEs = document.createElement("div");
+          pEs.style.color = "#7dd3fc";
+          pEs.style.fontSize = "13px";
+          pEs.style.marginTop = "4px";
+          pEs.textContent = item.extra_es;
+          extraEl.appendChild(pEs);
+        }
       }
 
       document.getElementById("answer-box").classList.add("hidden");

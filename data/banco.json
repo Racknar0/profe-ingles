@@ -13,7 +13,8 @@
       "episodio": "S01E02",
       "en": "That's not why",
       "es": "Esa no es la razón por la que...",
-      "ejemplo": "That's not why I'm calling you."
+      "ejemplo": "That's not why I'm calling you.",
+      "ejemplo_es": "Esa no es la razón por la que te estoy llamando."
     },
     {
       "id": "v_d21_2",
@@ -21,7 +22,8 @@
       "episodio": "S01E02",
       "en": "Otherwise",
       "es": "De lo contrario / Si no...",
-      "ejemplo": "Otherwise next time you're gonna find yourself sitting at home."
+      "ejemplo": "Otherwise next time you're gonna find yourself sitting at home.",
+      "ejemplo_es": "De lo contrario, la próxima vez te vas a quedar sentado en casa."
     },
     {
       "id": "v_d19_1",
@@ -29,7 +31,8 @@
       "episodio": "S01E01",
       "en": "Crash on the couch",
       "es": "Quedarse a dormir en el sofá",
-      "ejemplo": "You gonna crash on the couch?"
+      "ejemplo": "You gonna crash on the couch?",
+      "ejemplo_es": "¿Te vas a quedar a dormir en el sofá?"
     },
     {
       "id": "v_d19_2",
@@ -37,7 +40,8 @@
       "episodio": "S01E01",
       "en": "I had a major crush on you",
       "es": "Me gustabas muchísimo / estaba loquito por ti",
-      "ejemplo": "In high school, I had a major crush on you."
+      "ejemplo": "In high school, I had a major crush on you.",
+      "ejemplo_es": "En la secundaria me gustabas muchísimo."
     },
     {
       "id": "v_d18_1",
@@ -45,7 +49,8 @@
       "episodio": "S01E01",
       "en": "Give someone a break",
       "es": "Darle un respiro / una tregua a alguien (no presionar)",
-      "ejemplo": "Give her a break, it's hard being on your own for the first time."
+      "ejemplo": "Give her a break, it's hard being on your own for the first time.",
+      "ejemplo_es": "Dale un respiro, es difícil estar por tu cuenta por primera vez."
     },
     {
       "id": "v_d18_2",
@@ -53,7 +58,8 @@
       "episodio": "S01E01",
       "en": "On your own",
       "es": "Por tu cuenta / solo",
-      "ejemplo": "It's hard being on your own for the first time."
+      "ejemplo": "It's hard being on your own for the first time.",
+      "ejemplo_es": "Es difícil estar por tu cuenta por primera vez."
     },
     {
       "id": "v_d18_3",
@@ -61,7 +67,8 @@
       "episodio": "S01E01",
       "en": "It sucks",
       "es": "Es una porquería / Qué mal / Apesta",
-      "ejemplo": "Welcome to the real world! It sucks. You're gonna love it!"
+      "ejemplo": "Welcome to the real world! It sucks. You're gonna love it!",
+      "ejemplo_es": "¡Bienvenida al mundo real! Apesta. ¡Te va a encantar!"
     },
     {
       "id": "v_d17_1",
@@ -69,7 +76,8 @@
       "episodio": "S01E01",
       "en": "Laughed out of twelve interviews",
       "es": "Se me rieron en la cara en doce entrevistas",
-      "ejemplo": "Are you kidding? I was laughed out of twelve interviews today."
+      "ejemplo": "Are you kidding? I was laughed out of twelve interviews today.",
+      "ejemplo_es": "¿Estás bromeando? Hoy se me rieron en la cara en doce entrevistas."
     },
     {
       "id": "v_d17_2",
@@ -77,7 +85,8 @@
       "episodio": "S01E01",
       "en": "Upbeat",
       "es": "Optimista / animado / con energía positiva",
-      "ejemplo": "And yet you're surprisingly upbeat."
+      "ejemplo": "And yet you're surprisingly upbeat.",
+      "ejemplo_es": "Y aún así estás sorprendentemente animada."
     },
     {
       "id": "v_d16_1",
@@ -85,7 +94,8 @@
       "episodio": "S01E01",
       "en": "Why would anybody...?",
       "es": "¿Por qué alguien haría...?",
-      "ejemplo": "Why would anybody do something like that?"
+      "ejemplo": "Why would anybody do something like that?",
+      "ejemplo_es": "¿Por qué alguien haría algo así?"
     },
     {
       "id": "v_d15_1",
@@ -93,7 +103,8 @@
       "episodio": "S01E01",
       "en": "Slept with a hanger in your mouth",
       "es": "Tener una sonrisa gigante de oreja a oreja",
-      "ejemplo": "You look like you slept with a hanger in your mouth."
+      "ejemplo": "You look like you slept with a hanger in your mouth.",
+      "ejemplo_es": "Parece que hubieras dormido con un gancho de ropa en la boca."
     },
     {
       "id": "v_d14_1",
@@ -101,7 +112,8 @@
       "episodio": "S01E01",
       "en": "What the hell...?",
       "es": "¿Qué diablos / qué carajos...?",
-      "ejemplo": "What the hell do you do on a real date?"
+      "ejemplo": "What the hell do you do on a real date?",
+      "ejemplo_es": "¿Qué diablos haces en una cita de verdad?"
     },
     {
       "id": "v_d14_2",
@@ -109,7 +121,8 @@
       "episodio": "S01E01",
       "en": "I will not take this abuse",
       "es": "No voy a tolerar este abuso / estas burlas",
-      "ejemplo": "I will not take this abuse."
+      "ejemplo": "I will not take this abuse.",
+      "ejemplo_es": "No voy a tolerar este abuso."
     },
     {
       "id": "v_d13_1",
@@ -117,7 +130,8 @@
       "episodio": "S01E01",
       "en": "Get it together",
       "es": "Recomponerse / organizarse / controlarse",
-      "ejemplo": "Even if I could get it together enough to ask a woman out..."
+      "ejemplo": "Even if I could get it together enough to ask a woman out...",
+      "ejemplo_es": "Incluso si pudiera recomponerme lo suficiente como para invitar a salir a una mujer..."
     },
     {
       "id": "v_d13_2",
@@ -125,7 +139,8 @@
       "episodio": "S01E01",
       "en": "Be on a roll",
       "es": "Estar en racha / estar embalado",
-      "ejemplo": "While you're on a roll, make a Western omelet."
+      "ejemplo": "While you're on a roll, make a Western omelet.",
+      "ejemplo_es": "Ya que estás en racha, prepárate un omelet."
     },
     {
       "id": "v_d12_1",
@@ -133,7 +148,8 @@
       "episodio": "S01E01",
       "en": "What were you gonna say?",
       "es": "¿Qué ibas a decir?",
-      "ejemplo": "What were you gonna say?"
+      "ejemplo": "What were you gonna say?",
+      "ejemplo_es": "¿Qué ibas a decir?"
     },
     {
       "id": "v_d12_2",
@@ -141,7 +157,8 @@
       "episodio": "S01E01",
       "en": "I'm glad you...",
       "es": "Me alegro de que hayas...",
-      "ejemplo": "I'm glad you smashed her watch!"
+      "ejemplo": "I'm glad you smashed her watch!",
+      "ejemplo_es": "¡Me alegro de que le hayas destrozado el reloj!"
     },
     {
       "id": "v_d11_1",
@@ -149,7 +166,8 @@
       "episodio": "S01E01",
       "en": "Grab a spoon",
       "es": "Tomar una cuchara (aprovechar las oportunidades / lanzarse)",
-      "ejemplo": "Welcome back to the world! Grab a spoon!"
+      "ejemplo": "Welcome back to the world! Grab a spoon!",
+      "ejemplo_es": "¡Bienvenido de vuelta al mundo! ¡Atrévete / lánzate!"
     },
     {
       "id": "v_d10_1",
@@ -157,7 +175,8 @@
       "episodio": "S01E01",
       "en": "Get through it",
       "es": "Superarlo / atravesar un momento difícil",
-      "ejemplo": "How did you get through it?"
+      "ejemplo": "How did you get through it?",
+      "ejemplo_es": "¿Cómo lo superaste?"
     },
     {
       "id": "v_d10_2",
@@ -165,7 +184,8 @@
       "episodio": "S01E01",
       "en": "Actually",
       "es": "De verdad / en realidad / en serio (NO 'actualmente')",
-      "ejemplo": "You actually broke her watch?"
+      "ejemplo": "You actually broke her watch?",
+      "ejemplo_es": "¿De verdad le rompiste el reloj?"
     },
     {
       "id": "v_d10_3",
@@ -173,7 +193,8 @@
       "episodio": "S01E01",
       "en": "Steer clear of",
       "es": "Mantenerse alejado de alguien",
-      "ejemplo": "Ooh, steer clear of you."
+      "ejemplo": "Ooh, steer clear of you.",
+      "ejemplo_es": "Uy, mejor mantenerse alejado de ti."
     },
     {
       "id": "v_d9_1",
@@ -181,7 +202,8 @@
       "episodio": "S01E01",
       "en": "Let me ask you a question",
       "es": "Déjame hacerte una pregunta",
-      "ejemplo": "Let me ask you a question."
+      "ejemplo": "Let me ask you a question.",
+      "ejemplo_es": "Déjame hacerte una pregunta."
     },
     {
       "id": "v_d9_2",
@@ -189,7 +211,8 @@
       "episodio": "S01E01",
       "en": "I should have known",
       "es": "Debí haberlo sabido / Me lo hubiera imaginado",
-      "ejemplo": "I should have known."
+      "ejemplo": "I should have known.",
+      "ejemplo_es": "Debí haberlo sabido."
     },
     {
       "id": "v_d9_3",
@@ -197,7 +220,8 @@
       "episodio": "S01E01",
       "en": "You got screwed",
       "es": "Te jodieron / Saliste perdiendo",
-      "ejemplo": "You got screwed."
+      "ejemplo": "You got screwed.",
+      "ejemplo_es": "Te jodieron / Saliste perdiendo."
     },
     {
       "id": "v_d8_1",
@@ -205,7 +229,8 @@
       "episodio": "S01E01",
       "en": "What're you up to tonight?",
       "es": "¿Qué planes tienes para hoy en la noche?",
-      "ejemplo": "What're you up to tonight?"
+      "ejemplo": "What're you up to tonight?",
+      "ejemplo_es": "¿Qué planes tienes para hoy en la noche?"
     },
     {
       "id": "v_d8_2",
@@ -213,7 +238,8 @@
       "episodio": "S01E01",
       "en": "I wish I could, but I don't want to",
       "es": "Ojalá pudiera, pero no quiero",
-      "ejemplo": "Oh, I wish I could, but I don't want to."
+      "ejemplo": "Oh, I wish I could, but I don't want to.",
+      "ejemplo_es": "Oh, ojalá pudiera, pero no quiero."
     },
     {
       "id": "v_d7_1",
@@ -221,7 +247,8 @@
       "episodio": "S01E01",
       "en": "Ask someone out",
       "es": "Invitar a salir a alguien (cita)",
-      "ejemplo": "He finally asked you out?"
+      "ejemplo": "He finally asked you out?",
+      "ejemplo_es": "¿Por fin te invitó a salir?"
     },
     {
       "id": "v_d7_2",
@@ -229,7 +256,8 @@
       "episodio": "S01E01",
       "en": "I didn't catch your name",
       "es": "No alcancé a escuchar tu nombre / ¿Cómo dijiste que te llamas?",
-      "ejemplo": "I'm sorry, I didn't catch your name."
+      "ejemplo": "I'm sorry, I didn't catch your name.",
+      "ejemplo_es": "Disculpa, no alcancé a escuchar tu nombre."
     },
     {
       "id": "v_d6_1",
@@ -237,7 +265,8 @@
       "episodio": "S01E01",
       "en": "Hit on someone",
       "es": "Coquetear / ligar con alguien",
-      "ejemplo": "Joey, stop hitting on her!"
+      "ejemplo": "Joey, stop hitting on her!",
+      "ejemplo_es": "¡Joey, deja de coquetear con ella!"
     },
     {
       "id": "v_d5_1",
@@ -245,7 +274,8 @@
       "episodio": "S01E01",
       "en": "It matters to me",
       "es": "A mí sí me importa",
-      "ejemplo": "Well, it matters to me!"
+      "ejemplo": "Well, it matters to me!",
+      "ejemplo_es": "¡Bueno, a mí sí me importa!"
     },
     {
       "id": "v_d4_1",
@@ -253,7 +283,8 @@
       "episodio": "S01E01",
       "en": "Kinda (kind of)",
       "es": "Como que / un poco / más o menos",
-      "ejemplo": "I was kinda hoping that wouldn't be an issue."
+      "ejemplo": "I was kinda hoping that wouldn't be an issue.",
+      "ejemplo_es": "Como que esperaba que eso no fuera un problema."
     },
     {
       "id": "v_d3_1",
@@ -261,7 +292,8 @@
       "episodio": "S01E01",
       "en": "How should I know?",
       "es": "¿Cómo voy a saberlo? / ¿Yo qué sé?",
-      "ejemplo": "How should I know?"
+      "ejemplo": "How should I know?",
+      "ejemplo_es": "¿Cómo voy a saberlo?"
     },
     {
       "id": "v_d3_2",
@@ -269,7 +301,8 @@
       "episodio": "S01E01",
       "en": "Did I say that out loud?",
       "es": "¿Dije eso en voz alta?",
-      "ejemplo": "Did I say that out loud?"
+      "ejemplo": "Did I say that out loud?",
+      "ejemplo_es": "¿Dije eso en voz alta?"
     },
     {
       "id": "v_d2_1",
@@ -277,7 +310,8 @@
       "episodio": "S01E01",
       "en": "To hell with her",
       "es": "Al diablo con ella",
-      "ejemplo": "To hell with her, she left me!"
+      "ejemplo": "To hell with her, she left me!",
+      "ejemplo_es": "¡Al diablo con ella, ella me dejó!"
     }
   ],
   "frases": [

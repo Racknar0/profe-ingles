@@ -42,7 +42,7 @@
           tag: `Vocabulario · Día ${v.dia} (${v.episodio})`,
           question: v.es,
           answer: v.en,
-          extra: v.ejemplo ? `Ejemplo: "${v.ejemplo}"` : ""
+          extra: v.ejemplo ? `Ejemplo: "${v.ejemplo}"${v.ejemplo_es ? `\n${v.ejemplo_es}` : ""}` : ""
         });
       }
     }
@@ -151,6 +151,7 @@
         <p class="answer-text">${v.en}</p>
         <p class="question-text" style="font-size:1rem;margin-bottom:6px;">${v.es}</p>
         ${v.ejemplo ? `<p class="extra-text">Ejemplo: "${v.ejemplo}"</p>` : ""}
+        ${v.ejemplo_es ? `<p class="extra-text" style="color:#7dd3fc;font-size:0.82rem;margin-top:3px;">${v.ejemplo_es}</p>` : ""}
         <div class="btn-row">
           <button class="btn-secondary speak-v" type="button">🔊 Pronunciar</button>
         </div>

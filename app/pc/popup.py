@@ -100,6 +100,7 @@ class EntrenadorState:
                     "pregunta": v["es"],
                     "respuesta": v["en"],
                     "extra": f"Ejemplo: {v.get('ejemplo', '')}" if v.get("ejemplo") else "",
+                    "extra_es": v.get("ejemplo_es", ""),
                     "bloques": [],
                     "es_gramatica": False,
                     "nivel": self.progreso.get(v["id"], 0),
