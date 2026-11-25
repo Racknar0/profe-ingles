@@ -2,3 +2,8 @@ __pycache__/
 *.pyc
 app/pc/progreso.json
 .DS_Store
+
+# Archivos locales del profesor y progreso privado
+AGENTS.md
+STATUS.md
+MEMORY.md
