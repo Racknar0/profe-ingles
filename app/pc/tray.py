@@ -51,6 +51,7 @@ user32.LoadImageW.argtypes = [wintypes.HINSTANCE, wintypes.LPCWSTR, wintypes.UIN
 user32.LoadImageW.restype = wintypes.HICON
 kernel32.GetModuleHandleW.argtypes = [wintypes.LPCWSTR]
 kernel32.GetModuleHandleW.restype = wintypes.HINSTANCE
+shell32.Shell_NotifyIconW.argtypes = [wintypes.DWORD, ctypes.c_void_p]
 shell32.Shell_NotifyIconW.restype = wintypes.BOOL
 
 
@@ -190,8 +191,7 @@ class TrayIcon:
             nid.hIcon = hicon
             nid.szTip = "Profe Inglés — Clic para practicar"
             self.nid = nid
-            ok = shell32.Shell_NotifyIconW(NIM_ADD, ctypes.byref(nid))
-            print(f"[Tray] hwnd={self.hwnd} hicon={hicon} Shell_NotifyIconW={ok}", flush=True)
+            shell32.Shell_NotifyIconW(NIM_ADD, ctypes.byref(nid))
 
             msg = wintypes.MSG()
             while user32.GetMessageW(ctypes.byref(msg), None, 0, 0) > 0:
