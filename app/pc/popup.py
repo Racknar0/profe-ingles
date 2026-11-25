@@ -187,6 +187,32 @@ def crear_handler(state: EntrenadorState):
     return PopupHandler
 
 
+def mantener_siempre_encima(proc: subprocess.Popen) -> None:
+    """Fuerza HWND_TOPMOST en la ventana del pop-up mientras esté abierta."""
+    user32 = ctypes.windll.user32
+    WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
+    titulo_objetivo = "Profe Inglés — Entrenador"
+
+    def _forzar() -> None:
+        while proc.poll() is None:
+            def _enum_cb(hwnd, _lparam):
+                if not user32.IsWindowVisible(hwnd):
+                    return True
+                length = user32.GetWindowTextLengthW(hwnd)
+                if length > 0:
+                    buf = ctypes.create_unicode_buffer(length + 1)
+                    user32.GetWindowTextW(hwnd, buf, length + 1)
+                    if titulo_objetivo in buf.value:
+                        # HWND_TOPMOST = -1, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE = 0x0013
+                        user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 0x0013)
+                return True
+
+            user32.EnumWindows(WNDENUMPROC(_enum_cb), 0)
+            time.sleep(0.8)
+
+    threading.Thread(target=_forzar, daemon=True).start()
+
+
 def abrir_ventana_moderna(puerto: int, navegador: str) -> subprocess.Popen:
     """Abre el pop-up moderno centrado usando Edge/Chrome en modo --app."""
     ancho, alto = 760, 620
@@ -241,6 +267,7 @@ def main() -> None:
         # Deja programado el ciclo normal por si el usuario cierra con la X
         state.programar()
         proc = abrir_ventana_moderna(puerto, navegador)
+        mantener_siempre_encima(proc)
         proc.wait()
 
 
