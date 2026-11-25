@@ -1,6 +1,5 @@
-const CACHE_NAME = "profe-ingles-v1";
+const CACHE_NAME = "profe-ingles-v2";
 const ASSETS = [
-  "./",
   "./index.html",
   "./styles.css",
   "./app.js",

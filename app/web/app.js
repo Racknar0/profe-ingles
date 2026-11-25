@@ -198,4 +198,22 @@
 
   renderLists();
   loadNextQuiz();
+
+  let deferredPrompt = null;
+  const btnInstall = document.getElementById("btn-install");
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (btnInstall) btnInstall.classList.remove("hidden");
+  });
+
+  if (btnInstall) {
+    btnInstall.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      btnInstall.classList.add("hidden");
+    });
+  }
 })();
