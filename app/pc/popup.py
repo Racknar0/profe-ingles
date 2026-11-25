@@ -8,6 +8,7 @@ import subprocess
 import tempfile
 import threading
 import time
+import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -15,6 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 BANCO_PATH = BASE_DIR / "data" / "banco.json"
 CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
 PROGRESO_PATH = Path(__file__).resolve().parent / "progreso.json"
+PORT_PATH = Path(__file__).resolve().parent / ".port"
 UI_PATH = Path(__file__).resolve().parent / "popup_ui.html"
 ICON_ICO_PATH = Path(__file__).resolve().parent / "icon.ico"
 ICON_PNG_PATH = BASE_DIR / "app" / "web" / "icon-192.png"
@@ -78,6 +80,7 @@ class EntrenadorState:
         self.lock = threading.Lock()
         self.evento_espera = threading.Event()
         self.ronda_actual: list[dict] = []
+        self.proc_actual: subprocess.Popen | None = None
         self.salir = False
 
     def obtener_items(self) -> tuple[list[dict], list[dict], list[dict]]:
@@ -184,7 +187,11 @@ class EntrenadorState:
     def detener(self) -> None:
         """Finaliza el proceso en segundo plano limpiamente."""
         self.salir = True
+        if self.proc_actual and self.proc_actual.poll() is None:
+            self.proc_actual.terminate()
+        PORT_PATH.unlink(missing_ok=True)
         self.evento_espera.set()
+        os._exit(0)
 
 
 def crear_handler(state: EntrenadorState):
@@ -241,6 +248,9 @@ def crear_handler(state: EntrenadorState):
                 self._json(200, {"ok": True})
             elif self.path == "/api/intervalo":
                 state.cambiar_intervalo(int(data.get("minutos", 45)))
+                self._json(200, {"ok": True})
+            elif self.path == "/api/practicar":
+                state.practicar_ahora()
                 self._json(200, {"ok": True})
             else:
                 self.send_error(404)
@@ -309,7 +319,7 @@ def abrir_ventana_moderna(puerto: int, navegador: str) -> subprocess.Popen:
     return subprocess.Popen(args)
 
 
-def asegurar_instancia_unica() -> object:
+def asegurar_instancia_unica(abrir_si_existe: bool = False) -> object:
     """Evita dobles ejecuciones usando un Mutex nativo de Windows."""
     kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
     kernel32.CreateMutexW.argtypes = [ctypes.c_void_p, wintypes.BOOL, wintypes.LPCWSTR]
@@ -317,15 +327,26 @@ def asegurar_instancia_unica() -> object:
     mutex = kernel32.CreateMutexW(None, False, "Local\\ProfeInglesPopupMutex")
     ERROR_ALREADY_EXISTS = 183
     if ctypes.get_last_error() == ERROR_ALREADY_EXISTS:
+        if abrir_si_existe and PORT_PATH.exists():
+            try:
+                puerto = PORT_PATH.read_text(encoding="utf-8").strip()
+                req = urllib.request.Request(
+                    f"http://127.0.0.1:{puerto}/api/practicar",
+                    data=b"{}",
+                    method="POST",
+                )
+                urllib.request.urlopen(req, timeout=2)
+            except Exception:
+                pass
         raise SystemExit(0)
     return mutex
 
 
 def main() -> None:
-    _mutex = asegurar_instancia_unica()
     parser = argparse.ArgumentParser(description="Pop-up Entrenador Moderno")
     parser.add_argument("--now", action="store_true", help="Mostrar ronda inmediatamente")
     args = parser.parse_args()
+    _mutex = asegurar_instancia_unica(abrir_si_existe=args.now)
 
     navegador = encontrar_navegador()
     if not navegador:
@@ -334,6 +355,7 @@ def main() -> None:
     state = EntrenadorState()
     server = ThreadingHTTPServer(("127.0.0.1", 0), crear_handler(state))
     puerto = server.server_address[1]
+    PORT_PATH.write_text(str(puerto), encoding="utf-8")
     threading.Thread(target=server.serve_forever, daemon=True).start()
 
     tray = TrayIcon(
@@ -365,8 +387,10 @@ def main() -> None:
         # Deja programado el ciclo normal por si el usuario cierra con la X
         state.programar()
         proc = abrir_ventana_moderna(puerto, navegador)
+        state.proc_actual = proc
         mantener_siempre_encima(proc)
         proc.wait()
+        state.proc_actual = None
 
     tray.remover()
 
