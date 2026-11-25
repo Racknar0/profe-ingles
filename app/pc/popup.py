@@ -1,5 +1,6 @@
 import argparse
 import ctypes
+from ctypes import wintypes
 import json
 import os
 import random
@@ -33,14 +34,14 @@ def guardar_json(ruta: Path, data: dict) -> None:
 
 
 def encontrar_navegador() -> str | None:
-    """Busca Microsoft Edge o Google Chrome en Windows para modo --app."""
+    """Busca Google Chrome o Microsoft Edge en Windows para modo --app."""
     candidatos = [
-        Path(os.environ.get("ProgramFiles(x86)", "")) / "Microsoft/Edge/Application/msedge.exe",
-        Path(os.environ.get("ProgramFiles", "")) / "Microsoft/Edge/Application/msedge.exe",
-        Path(os.environ.get("LocalAppData", "")) / "Microsoft/Edge/Application/msedge.exe",
         Path(os.environ.get("ProgramFiles", "")) / "Google/Chrome/Application/chrome.exe",
         Path(os.environ.get("ProgramFiles(x86)", "")) / "Google/Chrome/Application/chrome.exe",
         Path(os.environ.get("LocalAppData", "")) / "Google/Chrome/Application/chrome.exe",
+        Path(os.environ.get("ProgramFiles(x86)", "")) / "Microsoft/Edge/Application/msedge.exe",
+        Path(os.environ.get("ProgramFiles", "")) / "Microsoft/Edge/Application/msedge.exe",
+        Path(os.environ.get("LocalAppData", "")) / "Microsoft/Edge/Application/msedge.exe",
     ]
     for ruta in candidatos:
         if ruta.exists():
@@ -190,7 +191,18 @@ def crear_handler(state: EntrenadorState):
 def mantener_siempre_encima(proc: subprocess.Popen) -> None:
     """Fuerza HWND_TOPMOST en la ventana del pop-up mientras esté abierta."""
     user32 = ctypes.windll.user32
-    WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
+    user32.SetWindowPos.argtypes = [
+        wintypes.HWND,
+        wintypes.HWND,
+        ctypes.c_int,
+        ctypes.c_int,
+        ctypes.c_int,
+        ctypes.c_int,
+        ctypes.c_uint,
+    ]
+    user32.SetWindowPos.restype = wintypes.BOOL
+    WNDENUMPROC = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
+    HWND_TOPMOST = wintypes.HWND(-1)
     titulo_objetivo = "Profe Inglés — Entrenador"
 
     def _forzar() -> None:
@@ -203,18 +215,18 @@ def mantener_siempre_encima(proc: subprocess.Popen) -> None:
                     buf = ctypes.create_unicode_buffer(length + 1)
                     user32.GetWindowTextW(hwnd, buf, length + 1)
                     if titulo_objetivo in buf.value:
-                        # HWND_TOPMOST = -1, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE = 0x0013
-                        user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 0x0013)
+                        # SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE = 0x0013
+                        user32.SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, 0x0013)
                 return True
 
             user32.EnumWindows(WNDENUMPROC(_enum_cb), 0)
-            time.sleep(0.8)
+            time.sleep(0.5)
 
     threading.Thread(target=_forzar, daemon=True).start()
 
 
 def abrir_ventana_moderna(puerto: int, navegador: str) -> subprocess.Popen:
-    """Abre el pop-up moderno centrado usando Edge/Chrome en modo --app."""
+    """Abre el pop-up moderno centrado usando Chrome/Edge en modo --app."""
     ancho, alto = 760, 620
     sw, sh = obtener_pantalla()
     x = max(0, (sw - ancho) // 2)
@@ -228,8 +240,12 @@ def abrir_ventana_moderna(puerto: int, navegador: str) -> subprocess.Popen:
         f"--window-position={x},{y}",
         f"--user-data-dir={perfil}",
         "--no-first-run",
+        "--no-default-browser-check",
+        "--disable-sync",
         "--disable-extensions",
     ]
+    if "msedge" in navegador.lower():
+        args.append("--guest")
     return subprocess.Popen(args)
 
 
