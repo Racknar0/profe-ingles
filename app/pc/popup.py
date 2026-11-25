@@ -286,7 +286,20 @@ def abrir_ventana_moderna(puerto: int, navegador: str) -> subprocess.Popen:
     return subprocess.Popen(args)
 
 
+def asegurar_instancia_unica() -> object:
+    """Evita dobles ejecuciones usando un Mutex nativo de Windows."""
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    kernel32.CreateMutexW.argtypes = [ctypes.c_void_p, wintypes.BOOL, wintypes.LPCWSTR]
+    kernel32.CreateMutexW.restype = wintypes.HANDLE
+    mutex = kernel32.CreateMutexW(None, False, "Local\\ProfeInglesPopupMutex")
+    ERROR_ALREADY_EXISTS = 183
+    if ctypes.get_last_error() == ERROR_ALREADY_EXISTS:
+        raise SystemExit(0)
+    return mutex
+
+
 def main() -> None:
+    _mutex = asegurar_instancia_unica()
     parser = argparse.ArgumentParser(description="Pop-up Entrenador Moderno")
     parser.add_argument("--now", action="store_true", help="Mostrar ronda inmediatamente")
     args = parser.parse_args()
