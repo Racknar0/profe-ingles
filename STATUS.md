@@ -17,9 +17,9 @@ Al iniciar la próxima clase, evaluar primero estas expresiones elegidas en el D
 ---
 
 ## 2. Sistema Propio de Repaso (Construido ✅)
-- **Base de datos única:** `data/banco.json` (sincronizada a `web/data.js` con `python sync_data.py`).
-- **Pop-up Entrenador en PC (Windows):** `pc/popup.py` (ejecutar con `Iniciar_Popup.bat`). Salta cada 45 min (editable en `pc/config.json`) con audio en inglés y repetición espaciada.
-- **App Web Móvil (PWA):** `web/index.html` (probar en PC/Wi-Fi con `Abrir_Web_Local.bat` o subir la carpeta `web/` a Netlify/GitHub Pages para acceso desde cualquier lugar).
+- **Base de datos única:** `data/banco.json` (sincronizada a `app/web/data.js` con `python app/sync_data.py`).
+- **Pop-up Entrenador en PC (Windows):** `app/pc/popup.py` (ejecutar con `app/pc/Iniciar_Popup.bat`). Salta cada 45 min (editable en `app/pc/config.json`) con audio en inglés y repetición espaciada.
+- **App Web Móvil (PWA):** `app/web/index.html` (probar en PC/Wi-Fi con `app/web/Abrir_Web_Local.bat` o en GitHub Pages).
 
 ---
 

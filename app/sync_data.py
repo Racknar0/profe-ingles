@@ -1,9 +1,9 @@
 import json
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 BANCO_PATH = BASE_DIR / "data" / "banco.json"
-WEB_DATA_PATH = BASE_DIR / "web" / "data.js"
+WEB_DATA_PATH = Path(__file__).resolve().parent / "web" / "data.js"
 
 
 def sync() -> None:

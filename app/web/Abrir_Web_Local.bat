@@ -1,5 +1,5 @@
 @echo off
-cd /d "%~dp0\web"
+cd /d "%~dp0"
 for /f "tokens=2 delims=:" %%a in ('ipconfig ^| findstr /i "IPv4"') do set IP=%%a
 set IP=%IP: =%
 echo.

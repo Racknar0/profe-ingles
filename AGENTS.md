@@ -56,4 +56,4 @@ Alcanzar fluidez real al hablar, comprensión auditiva natural y pronunciación 
 - Cada vez que se complete un día y Camilo envíe sus **3 expresiones elegidas**:
   1. Actualiza `STATUS.md` con: la clase del día (frases, píldora gramatical, vocabulario elegido), el nuevo punto exacto del episodio (minuto/escena) y la cola de evaluación para el día siguiente.
   2. Si surge alguna preferencia nueva, hito importante o ajuste metodológico, regístralo en `MEMORY.md`.
-  3. Actualiza `data/banco.json` con las nuevas frases de Shadowing, vocabulario elegido y píldora gramatical del día, y ejecuta `python sync_data.py` para sincronizar `web/data.js` automáticamente.
+  3. Actualiza `data/banco.json` con las nuevas frases de Shadowing, vocabulario elegido y píldora gramatical del día, y ejecuta `python app/sync_data.py` para sincronizar `app/web/data.js` automáticamente.

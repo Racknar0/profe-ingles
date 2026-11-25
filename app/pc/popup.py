@@ -8,7 +8,7 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import ttk
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 BANCO_PATH = BASE_DIR / "data" / "banco.json"
 CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
 PROGRESO_PATH = Path(__file__).resolve().parent / "progreso.json"
