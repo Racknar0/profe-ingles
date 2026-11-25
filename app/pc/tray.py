@@ -41,6 +41,10 @@ WNDPROC = ctypes.WINFUNCTYPE(ctypes.c_longlong, wintypes.HWND, wintypes.UINT, wi
 
 user32.DefWindowProcW.argtypes = [wintypes.HWND, wintypes.UINT, wintypes.WPARAM, wintypes.LPARAM]
 user32.DefWindowProcW.restype = ctypes.c_longlong
+user32.CreateWindowExW.restype = wintypes.HWND
+user32.LoadImageW.restype = wintypes.HICON
+kernel32.GetModuleHandleW.restype = wintypes.HINSTANCE
+shell32.Shell_NotifyIconW.restype = wintypes.BOOL
 
 
 class WNDCLASS(ctypes.Structure):
@@ -179,7 +183,8 @@ class TrayIcon:
             nid.hIcon = hicon
             nid.szTip = "Profe Inglés — Clic para practicar"
             self.nid = nid
-            shell32.Shell_NotifyIconW(NIM_ADD, ctypes.byref(nid))
+            ok = shell32.Shell_NotifyIconW(NIM_ADD, ctypes.byref(nid))
+            print(f"[Tray] hwnd={self.hwnd} hicon={hicon} Shell_NotifyIconW={ok}", flush=True)
 
             msg = wintypes.MSG()
             while user32.GetMessageW(ctypes.byref(msg), None, 0, 0) > 0:
