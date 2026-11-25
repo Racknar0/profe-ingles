@@ -41,8 +41,15 @@ WNDPROC = ctypes.WINFUNCTYPE(ctypes.c_longlong, wintypes.HWND, wintypes.UINT, wi
 
 user32.DefWindowProcW.argtypes = [wintypes.HWND, wintypes.UINT, wintypes.WPARAM, wintypes.LPARAM]
 user32.DefWindowProcW.restype = ctypes.c_longlong
+user32.CreateWindowExW.argtypes = [
+    wintypes.DWORD, wintypes.LPCWSTR, wintypes.LPCWSTR, wintypes.DWORD,
+    ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int,
+    wintypes.HWND, wintypes.HMENU, wintypes.HINSTANCE, wintypes.LPVOID,
+]
 user32.CreateWindowExW.restype = wintypes.HWND
+user32.LoadImageW.argtypes = [wintypes.HINSTANCE, wintypes.LPCWSTR, wintypes.UINT, ctypes.c_int, ctypes.c_int, wintypes.UINT]
 user32.LoadImageW.restype = wintypes.HICON
+kernel32.GetModuleHandleW.argtypes = [wintypes.LPCWSTR]
 kernel32.GetModuleHandleW.restype = wintypes.HINSTANCE
 shell32.Shell_NotifyIconW.restype = wintypes.BOOL
 
