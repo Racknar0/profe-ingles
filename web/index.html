@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Profe Inglés · Friends</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Friends · Entrenador</h1>
+      <p id="meta-info" class="subtitle">Cargando progreso...</p>
+    </div>
+    <span id="streak-badge" class="badge">0 repasos</span>
+  </header>
+
+  <main id="app-content" class="container">
+    <!-- Vista Quiz -->
+    <section id="view-quiz" class="view active">
+      <div class="filter-row">
+        <select id="quiz-filter" aria-label="Filtrar tarjetas">
+          <option value="all">Todo (Vocabulario + Frases)</option>
+          <option value="vocab">Solo Vocabulario</option>
+          <option value="frases">Solo Shadowing</option>
+        </select>
+        <button id="btn-next-quiz" class="btn-ghost" type="button">Siguiente ⏭️</button>
+      </div>
+
+      <article id="quiz-card" class="card">
+        <div class="card-tag" id="q-tag">Vocabulario</div>
+        <p class="prompt-label">¿Cómo lo dices en inglés?</p>
+        <h2 id="q-question" class="question-text">—</h2>
+
+        <div id="q-answer-box" class="answer-box hidden">
+          <p id="q-answer" class="answer-text"></p>
+          <div id="q-extra" class="extra-text"></div>
+        </div>
+
+        <div class="btn-row">
+          <button id="btn-reveal" class="btn-primary" type="button">👀 Ver respuesta</button>
+          <button id="btn-speak" class="btn-secondary" type="button">🔊 Escuchar</button>
+          <button id="btn-speak-slow" class="btn-secondary" type="button" title="Velocidad lenta 0.75x">🐢 0.75x</button>
+        </div>
+
+        <div id="q-rate-row" class="btn-row hidden">
+          <button id="btn-mastered" class="btn-success" type="button">✅ Lo dominé</button>
+          <button id="btn-review" class="btn-warn" type="button">🔁 Repasar pronto</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- Vista Shadowing -->
+    <section id="view-frases" class="view">
+      <div id="frases-list" class="stack"></div>
+    </section>
+
+    <!-- Vista Vocabulario -->
+    <section id="view-vocab" class="view">
+      <div id="vocab-list" class="stack"></div>
+    </section>
+
+    <!-- Vista Gramática -->
+    <section id="view-gramatica" class="view">
+      <div id="gramatica-list" class="stack"></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <button class="nav-btn active" data-tab="quiz" type="button">⚡<span>Quiz</span></button>
+    <button class="nav-btn" data-tab="frases" type="button">🎙️<span>Shadowing</span></button>
+    <button class="nav-btn" data-tab="vocab" type="button">🧠<span>Vocab</span></button>
+    <button class="nav-btn" data-tab="gramatica" type="button">💊<span>Gramática</span></button>
+  </nav>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

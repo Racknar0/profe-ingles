@@ -1,0 +1,7 @@
+{
+  "intervalo_minutos": 45,
+  "preguntas_por_sesion": 2,
+  "mostrar_al_iniciar": true,
+  "siempre_encima": true,
+  "velocidad_voz": 0
+}

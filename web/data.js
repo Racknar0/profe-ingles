@@ -1,0 +1,124 @@
+// Archivo autogenerado desde data/banco.json para compatibilidad offline y web sin CORS
+window.BANCO_DATA = {
+  "meta": {
+    "estudiante": "Camilo Torres",
+    "serie": "Friends",
+    "ultimo_dia": 21,
+    "episodio_actual": "S01E02 - The One with the Sonogram at the End",
+    "actualizado": "2026-11-24"
+  },
+  "vocabulario": [
+    {
+      "id": "v_d21_1",
+      "dia": 21,
+      "episodio": "S01E02",
+      "en": "That's not why",
+      "es": "Esa no es la razón por la que...",
+      "ejemplo": "That's not why I'm calling you.",
+      "nivel": 0
+    },
+    {
+      "id": "v_d21_2",
+      "dia": 21,
+      "episodio": "S01E02",
+      "en": "Otherwise",
+      "es": "De lo contrario / Si no...",
+      "ejemplo": "Otherwise next time you're gonna find yourself sitting at home.",
+      "nivel": 0
+    },
+    {
+      "id": "v_e01_1",
+      "dia": 20,
+      "episodio": "S01E01",
+      "en": "Grab a spoon",
+      "es": "Tomar una cuchara (aprovechar las oportunidades / lanzarse)",
+      "ejemplo": "There are plenty of spoons out there, just grab a spoon.",
+      "nivel": 1
+    },
+    {
+      "id": "v_e01_2",
+      "dia": 20,
+      "episodio": "S01E01",
+      "en": "It sucks",
+      "es": "Es una porquería / Qué mal / Apesta",
+      "ejemplo": "Welcome to the real world. It sucks. You're gonna love it!",
+      "nivel": 1
+    },
+    {
+      "id": "v_e01_3",
+      "dia": 20,
+      "episodio": "S01E01",
+      "en": "How should I know?",
+      "es": "¿Cómo voy a saberlo? / ¿Yo qué sé?",
+      "ejemplo": "How should I know? Nobody told me anything.",
+      "nivel": 1
+    },
+    {
+      "id": "v_e01_4",
+      "dia": 20,
+      "episodio": "S01E01",
+      "en": "Laughed out of twelve interviews",
+      "es": "Se me rieron en la cara en doce entrevistas",
+      "ejemplo": "I've been laughed out of twelve interviews today.",
+      "nivel": 1
+    }
+  ],
+  "frases": [
+    {
+      "id": "f_d21_1",
+      "dia": 21,
+      "episodio": "S01E02",
+      "personaje": "Chandler",
+      "en": "I mean it's like the stand-up comedian you have to sit through before Pink Floyd comes out.",
+      "es": "O sea, es como el comediante de apertura que tienes que aguantar antes de que salga Pink Floyd.",
+      "bloques": [
+        {
+          "en": "I mean it's like the stand-up comedian",
+          "fonetica": "Ai min its laik de stán-dap komídian"
+        },
+        {
+          "en": "you have to sit through before Pink Floyd comes out.",
+          "fonetica": "yu jaf tu sit zru bifór Pink Floid kams áut"
+        }
+      ]
+    },
+    {
+      "id": "f_d21_2",
+      "dia": 21,
+      "episodio": "S01E02",
+      "personaje": "Rachel",
+      "en": "Otherwise next time you're gonna find yourself sitting at home, listening to that album alone.",
+      "es": "De lo contrario, la próxima vez te vas a encontrar sentado en casa, escuchando ese álbum solo.",
+      "bloques": [
+        {
+          "en": "Otherwise next time you're gonna find yourself sitting at home,",
+          "fonetica": "Óderwais nekst taim yur góna faind yursélf síring at jóm"
+        },
+        {
+          "en": "listening to that album alone.",
+          "fonetica": "lísening tu dat álbum alón"
+        }
+      ]
+    }
+  ],
+  "gramatica": [
+    {
+      "id": "g_d21_1",
+      "dia": 21,
+      "episodio": "S01E02",
+      "titulo": "Comparación de igualdad: AS + adjetivo + AS",
+      "uso": "Sirve para decir que dos cosas tienen el mismo nivel o importancia (tan ... como).",
+      "formula": "AS + [adjetivo] + AS",
+      "ejemplos": [
+        {
+          "en": "Kissing is as important as any part of it.",
+          "es": "Besar es tan importante como cualquier otra parte."
+        },
+        {
+          "en": "This coffee is as good as yesterday's.",
+          "es": "Este café está tan bueno como el de ayer."
+        }
+      ]
+    }
+  ]
+};
