@@ -1,29 +1,20 @@
 import argparse
+import ctypes
 import json
+import os
 import random
 import subprocess
-import sys
+import tempfile
 import threading
-import tkinter as tk
+import time
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from tkinter import ttk
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 BANCO_PATH = BASE_DIR / "data" / "banco.json"
 CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
 PROGRESO_PATH = Path(__file__).resolve().parent / "progreso.json"
-
-COLORS = {
-    "bg": "#0f172a",
-    "card": "#1e293b",
-    "border": "#334155",
-    "text": "#f8fafc",
-    "muted": "#94a3b8",
-    "accent": "#38bdf8",
-    "success": "#22c55e",
-    "warn": "#f59e0b",
-    "btn_bg": "#334155",
-}
+UI_PATH = Path(__file__).resolve().parent / "popup_ui.html"
 
 
 def cargar_json(ruta: Path, default: dict) -> dict:
@@ -41,58 +32,44 @@ def guardar_json(ruta: Path, data: dict) -> None:
     ruta.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def hablar_ingles(texto: str, velocidad: int = 0) -> None:
-    """Reproduce texto en inglés usando el sintetizador nativo de Windows."""
-    texto_limpio = texto.replace("'", "''").replace('"', " ")
-    ps_script = (
-        "Add-Type -AssemblyName System.Speech; "
-        "$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; "
-        f"$s.Rate = {int(velocidad)}; "
-        "$v = $s.GetInstalledVoices() | Where-Object { $_.VoiceInfo.Culture.Name -like 'en-*' } | Select-Object -First 1; "
-        "if ($v) { $s.SelectVoice($v.VoiceInfo.Name) }; "
-        f"$s.Speak('{texto_limpio}')"
-    )
-
-    def _run() -> None:
-        flags = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
-        subprocess.run(
-            ["powershell", "-NoProfile", "-Command", ps_script],
-            creationflags=flags,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-
-    threading.Thread(target=_run, daemon=True).start()
+def encontrar_navegador() -> str | None:
+    """Busca Microsoft Edge o Google Chrome en Windows para modo --app."""
+    candidatos = [
+        Path(os.environ.get("ProgramFiles(x86)", "")) / "Microsoft/Edge/Application/msedge.exe",
+        Path(os.environ.get("ProgramFiles", "")) / "Microsoft/Edge/Application/msedge.exe",
+        Path(os.environ.get("LocalAppData", "")) / "Microsoft/Edge/Application/msedge.exe",
+        Path(os.environ.get("ProgramFiles", "")) / "Google/Chrome/Application/chrome.exe",
+        Path(os.environ.get("ProgramFiles(x86)", "")) / "Google/Chrome/Application/chrome.exe",
+        Path(os.environ.get("LocalAppData", "")) / "Google/Chrome/Application/chrome.exe",
+    ]
+    for ruta in candidatos:
+        if ruta.exists():
+            return str(ruta)
+    return None
 
 
-class PopupEntrenador:
-    """Ventana flotante periódica para repasar vocabulario y frases de Friends."""
+def obtener_pantalla() -> tuple[int, int]:
+    """Obtiene el ancho y alto de la pantalla principal en Windows."""
+    try:
+        user32 = ctypes.windll.user32
+        return user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+    except Exception:
+        return 1920, 1080
 
-    def __init__(self, abrir_ahora: bool = False) -> None:
+
+class EntrenadorState:
+    """Estado compartido entre el temporizador y el servidor HTTP del pop-up."""
+
+    def __init__(self) -> None:
         self.config = cargar_json(
             CONFIG_PATH,
-            {
-                "intervalo_minutos": 45,
-                "preguntas_por_sesion": 2,
-                "mostrar_al_iniciar": True,
-                "siempre_encima": True,
-                "velocidad_voz": 0,
-            },
+            {"intervalo_minutos": 45, "preguntas_por_sesion": 2, "mostrar_al_iniciar": True},
         )
         self.progreso = cargar_json(PROGRESO_PATH, {})
-        self.pausado = False
-        self.ventana: tk.Toplevel | None = None
-        self.item_actual: dict | None = None
-        self.pendientes_ronda = 0
-
-        self.root = tk.Tk()
-        self.root.withdraw()
-        self.root.title("Profe Inglés - Fondo")
-
-        if abrir_ahora or self.config.get("mostrar_al_iniciar", True):
-            self.root.after(200, self.iniciar_ronda)
-        else:
-            self.programar_siguiente()
+        self.siguiente_disparo = 0.0
+        self.lock = threading.Lock()
+        self.evento_espera = threading.Event()
+        self.ronda_actual: list[dict] = []
 
     def obtener_items(self) -> list[dict]:
         """Construye la lista unificada de vocabulario y frases desde data/banco.json."""
@@ -108,11 +85,11 @@ class PopupEntrenador:
                     "pregunta": v["es"],
                     "respuesta": v["en"],
                     "extra": f"Ejemplo: {v.get('ejemplo', '')}" if v.get("ejemplo") else "",
+                    "bloques": [],
+                    "nivel": self.progreso.get(v["id"], 0),
                 }
             )
         for f in banco.get("frases", []):
-            bloques = f.get("bloques", [])
-            fonetica = "\n".join(f"• {b['en']}\n  [{b['fonetica']}]" for b in bloques)
             items.append(
                 {
                     "id": f["id"],
@@ -121,259 +98,150 @@ class PopupEntrenador:
                     "episodio": f.get("episodio", ""),
                     "pregunta": f["es"],
                     "respuesta": f["en"],
-                    "extra": fonetica,
+                    "extra": "",
+                    "bloques": f.get("bloques", []),
+                    "nivel": self.progreso.get(f["id"], 0),
                 }
             )
         return items
 
-    def elegir_item(self) -> dict | None:
-        """Selecciona un ítem dando más peso a los que tienen menor nivel de dominio."""
+    def preparar_ronda(self) -> list[dict]:
+        """Elige N preguntas únicas ponderadas por menor nivel de dominio."""
         items = self.obtener_items()
         if not items:
-            return None
-        pesos = []
-        for it in items:
-            nivel = self.progreso.get(it["id"], 0)
-            peso = max(1, 6 - nivel)
-            pesos.append(peso)
-        return random.choices(items, weights=pesos, k=1)[0]
+            return []
+        cantidad = min(int(self.config.get("preguntas_por_sesion", 2)), len(items))
+        seleccionados: list[dict] = []
+        pool = items[:]
+        for _ in range(cantidad):
+            pesos = [max(1, 6 - it["nivel"]) for it in pool]
+            elegido = random.choices(pool, weights=pesos, k=1)[0]
+            seleccionados.append(elegido)
+            pool.remove(elegido)
+        self.ronda_actual = seleccionados
+        return seleccionados
 
-    def programar_siguiente(self, minutos: int | None = None) -> None:
-        """Programa la siguiente aparición del pop-up."""
-        mins = minutos if minutos is not None else int(self.config.get("intervalo_minutos", 45))
-        ms = max(1, mins) * 60 * 1000
-        self.root.after(ms, self.iniciar_ronda)
-
-    def iniciar_ronda(self) -> None:
-        """Abre una nueva ronda de preguntas si no está pausado."""
-        if self.pausado:
-            self.pausado = False
-        self.pendientes_ronda = int(self.config.get("preguntas_por_sesion", 2))
-        self.mostrar_tarjeta()
-
-    def mostrar_tarjeta(self) -> None:
-        """Crea o actualiza la ventana flotante con la pregunta actual."""
-        item = self.elegir_item()
-        if not item:
-            self.programar_siguiente()
-            return
-        self.item_actual = item
-
-        if self.ventana and self.ventana.winfo_exists():
-            self.ventana.destroy()
-
-        win = tk.Toplevel(self.root)
-        self.ventana = win
-        win.title("Profe Inglés — Repaso Rápido")
-        win.configure(bg=COLORS["bg"])
-        win.resizable(False, False)
-        if self.config.get("siempre_encima", True):
-            win.attributes("-topmost", True)
-
-        ancho, alto = 480, 400
-        sw = win.winfo_screenwidth()
-        sh = win.winfo_screenheight()
-        x = max(0, (sw - ancho) // 2)
-        y = max(0, (sh - alto) // 2)
-        win.geometry(f"{ancho}x{alto}+{x}+{y}")
-        win.lift()
-        win.focus_force()
-        win.protocol("WM_DELETE_WINDOW", self.posponer)
-
-        # Cabecera
-        header = tk.Frame(win, bg=COLORS["bg"])
-        header.pack(fill="x", padx=18, pady=(14, 6))
-
-        tag = f"{item['tipo']} · Día {item['dia']} ({item['episodio']})"
-        tk.Label(
-            header,
-            text=tag,
-            fg=COLORS["accent"],
-            bg=COLORS["bg"],
-            font=("Segoe UI", 9, "bold"),
-        ).pack(side="left")
-
-        tk.Label(
-            header,
-            text=f"Cada {self.config.get('intervalo_minutos', 45)} min",
-            fg=COLORS["muted"],
-            bg=COLORS["bg"],
-            font=("Segoe UI", 8),
-        ).pack(side="right")
-
-        # Tarjeta principal
-        card = tk.Frame(win, bg=COLORS["card"], highlightbackground=COLORS["border"], highlightthickness=1)
-        card.pack(fill="both", expand=True, padx=18, pady=6)
-
-        tk.Label(
-            card,
-            text="¿Cómo lo dices en inglés?",
-            fg=COLORS["muted"],
-            bg=COLORS["card"],
-            font=("Segoe UI", 9),
-        ).pack(anchor="w", padx=14, pady=(12, 4))
-
-        tk.Label(
-            card,
-            text=item["pregunta"],
-            fg=COLORS["text"],
-            bg=COLORS["card"],
-            font=("Segoe UI", 12, "bold"),
-            wraplength=390,
-            justify="left",
-        ).pack(anchor="w", padx=14, pady=(0, 10))
-
-        self.lbl_resp = tk.Label(
-            card,
-            text="",
-            fg=COLORS["success"],
-            bg=COLORS["card"],
-            font=("Segoe UI", 11, "bold"),
-            wraplength=390,
-            justify="left",
-        )
-        self.lbl_resp.pack(anchor="w", padx=14, pady=(2, 4))
-
-        self.lbl_extra = tk.Label(
-            card,
-            text="",
-            fg=COLORS["muted"],
-            bg=COLORS["card"],
-            font=("Segoe UI", 9),
-            wraplength=390,
-            justify="left",
-        )
-        self.lbl_extra.pack(anchor="w", padx=14, pady=(0, 10))
-
-        # Botonera
-        actions = tk.Frame(win, bg=COLORS["bg"])
-        actions.pack(fill="x", padx=18, pady=(6, 14))
-
-        self.btn_ver = tk.Button(
-            actions,
-            text="👀 Ver respuesta",
-            command=self.revelar,
-            bg=COLORS["accent"],
-            fg="#0f172a",
-            font=("Segoe UI", 9, "bold"),
-            relief="flat",
-            padx=12,
-            pady=6,
-            cursor="hand2",
-        )
-        self.btn_ver.pack(side="left")
-
-        self.btn_audio = tk.Button(
-            actions,
-            text="🔊 Escuchar",
-            command=self.reproducir_audio,
-            bg=COLORS["btn_bg"],
-            fg=COLORS["text"],
-            font=("Segoe UI", 9),
-            relief="flat",
-            padx=10,
-            pady=6,
-            cursor="hand2",
-        )
-        self.btn_audio.pack(side="left", padx=(6, 0))
-
-        self.btn_ok = tk.Button(
-            actions,
-            text="✅ Lo dominé",
-            command=lambda: self.calificar(1),
-            bg=COLORS["success"],
-            fg="#0f172a",
-            font=("Segoe UI", 9, "bold"),
-            relief="flat",
-            padx=10,
-            pady=6,
-            cursor="hand2",
-        )
-
-        self.btn_repasar = tk.Button(
-            actions,
-            text="🔁 Repasar",
-            command=lambda: self.calificar(-1),
-            bg=COLORS["warn"],
-            fg="#0f172a",
-            font=("Segoe UI", 9, "bold"),
-            relief="flat",
-            padx=10,
-            pady=6,
-            cursor="hand2",
-        )
-
-        tk.Button(
-            actions,
-            text="⏸ Posponer",
-            command=self.posponer,
-            bg=COLORS["bg"],
-            fg=COLORS["muted"],
-            font=("Segoe UI", 8),
-            relief="flat",
-            cursor="hand2",
-        ).pack(side="right")
-
-        tk.Button(
-            actions,
-            text="⏰ 10 min",
-            command=lambda: self.posponer(10),
-            bg=COLORS["btn_bg"],
-            fg=COLORS["text"],
-            font=("Segoe UI", 8),
-            relief="flat",
-            padx=8,
-            pady=4,
-            cursor="hand2",
-        ).pack(side="right", padx=(0, 6))
-
-    def revelar(self) -> None:
-        """Muestra la respuesta en inglés, el detalle fonético/ejemplo y los botones de calificación."""
-        if not self.item_actual:
-            return
-        self.lbl_resp.config(text=self.item_actual["respuesta"])
-        self.lbl_extra.config(text=self.item_actual["extra"])
-        self.btn_ver.pack_forget()
-        self.btn_ok.pack(side="left", padx=(0, 6))
-        self.btn_repasar.pack(side="left")
-        self.reproducir_audio()
-
-    def reproducir_audio(self) -> None:
-        """Reproduce en voz alta el texto en inglés de la tarjeta actual."""
-        if self.item_actual:
-            hablar_ingles(self.item_actual["respuesta"], self.config.get("velocidad_voz", 0))
-
-    def calificar(self, delta: int) -> None:
-        """Actualiza el nivel de dominio y pasa a la siguiente tarjeta o cierra la ronda."""
-        if self.item_actual:
-            iid = self.item_actual["id"]
-            actual = self.progreso.get(iid, 0)
-            self.progreso[iid] = max(0, min(5, actual + delta))
+    def calificar(self, item_id: str, delta: int) -> None:
+        """Actualiza y persiste el nivel de dominio (0-5) de una tarjeta."""
+        with self.lock:
+            actual = self.progreso.get(item_id, 0)
+            self.progreso[item_id] = max(0, min(5, actual + delta))
             guardar_json(PROGRESO_PATH, self.progreso)
 
-        self.pendientes_ronda -= 1
-        if self.pendientes_ronda > 0:
-            self.mostrar_tarjeta()
-        else:
-            self.posponer()
+    def programar(self, minutos: int | None = None) -> None:
+        """Programa la próxima ronda en N minutos y despierta si hace falta."""
+        mins = minutos if minutos is not None else int(self.config.get("intervalo_minutos", 45))
+        with self.lock:
+            self.siguiente_disparo = time.time() + max(1, mins) * 60
+        self.evento_espera.set()
 
-    def posponer(self, minutos: int | None = None) -> None:
-        """Cierra la ventana actual y programa el próximo aviso."""
-        if self.ventana and self.ventana.winfo_exists():
-            self.ventana.destroy()
-        self.programar_siguiente(minutos)
 
-    def run(self) -> None:
-        """Inicia el bucle principal de Tkinter."""
-        self.root.mainloop()
+def crear_handler(state: EntrenadorState):
+    """Crea el manejador HTTP para servir la UI moderna y las acciones del pop-up."""
+
+    class PopupHandler(BaseHTTPRequestHandler):
+        def log_message(self, format: str, *args) -> None:
+            return
+
+        def _json(self, code: int, payload: dict) -> None:
+            body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+            self.send_response(code)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+
+        def do_GET(self) -> None:
+            if self.path == "/" or self.path.startswith("/index"):
+                html = UI_PATH.read_bytes()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(html)))
+                self.end_headers()
+                self.wfile.write(html)
+            elif self.path == "/api/ronda":
+                self._json(
+                    200,
+                    {
+                        "items": state.ronda_actual,
+                        "intervalo_minutos": state.config.get("intervalo_minutos", 45),
+                    },
+                )
+            else:
+                self.send_error(404)
+
+        def do_POST(self) -> None:
+            length = int(self.headers.get("Content-Length", "0"))
+            raw = self.rfile.read(length) if length else b"{}"
+            data = json.loads(raw.decode("utf-8"))
+
+            if self.path == "/api/rate":
+                state.calificar(data["id"], int(data["delta"]))
+                self._json(200, {"ok": True})
+            elif self.path == "/api/postpone":
+                state.programar(data.get("minutos"))
+                self._json(200, {"ok": True})
+            else:
+                self.send_error(404)
+
+    return PopupHandler
+
+
+def abrir_ventana_moderna(puerto: int, navegador: str) -> subprocess.Popen:
+    """Abre el pop-up moderno centrado usando Edge/Chrome en modo --app."""
+    ancho, alto = 760, 620
+    sw, sh = obtener_pantalla()
+    x = max(0, (sw - ancho) // 2)
+    y = max(0, (sh - alto) // 2)
+    perfil = Path(tempfile.gettempdir()) / "profe_ingles_popup_profile"
+    perfil.mkdir(exist_ok=True)
+    args = [
+        navegador,
+        f"--app=http://127.0.0.1:{puerto}/",
+        f"--window-size={ancho},{alto}",
+        f"--window-position={x},{y}",
+        f"--user-data-dir={perfil}",
+        "--no-first-run",
+        "--disable-extensions",
+    ]
+    return subprocess.Popen(args)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Pop-up Entrenador de Inglés")
-    parser.add_argument("--now", action="store_true", help="Mostrar tarjeta inmediatamente al arrancar")
+    parser = argparse.ArgumentParser(description="Pop-up Entrenador Moderno")
+    parser.add_argument("--now", action="store_true", help="Mostrar ronda inmediatamente")
     args = parser.parse_args()
-    app = PopupEntrenador(abrir_ahora=args.now)
-    app.run()
+
+    navegador = encontrar_navegador()
+    if not navegador:
+        raise RuntimeError("No se encontró Microsoft Edge ni Google Chrome instalado.")
+
+    state = EntrenadorState()
+    server = ThreadingHTTPServer(("127.0.0.1", 0), crear_handler(state))
+    puerto = server.server_address[1]
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+
+    if args.now or state.config.get("mostrar_al_iniciar", True):
+        state.siguiente_disparo = time.time()
+    else:
+        state.programar()
+
+    while True:
+        espera = state.siguiente_disparo - time.time()
+        if espera > 0:
+            state.evento_espera.clear()
+            state.evento_espera.wait(timeout=espera)
+            continue
+
+        state.preparar_ronda()
+        if not state.ronda_actual:
+            state.programar()
+            continue
+
+        # Deja programado el ciclo normal por si el usuario cierra con la X
+        state.programar()
+        proc = abrir_ventana_moderna(puerto, navegador)
+        proc.wait()
 
 
 if __name__ == "__main__":
