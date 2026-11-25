@@ -260,25 +260,54 @@ def crear_handler(state: EntrenadorState):
 
 
 def mantener_siempre_encima(proc: subprocess.Popen) -> None:
-    """Fuerza HWND_TOPMOST en la ventana del pop-up mientras esté abierta."""
+    """Fuerza primer plano, siempre encima y bloquea minimizar/cerrar en Windows."""
     user32 = ctypes.windll.user32
+    kernel32 = ctypes.windll.kernel32
+
     user32.SetWindowPos.argtypes = [
-        wintypes.HWND,
-        wintypes.HWND,
-        ctypes.c_int,
-        ctypes.c_int,
-        ctypes.c_int,
-        ctypes.c_int,
-        ctypes.c_uint,
+        wintypes.HWND, wintypes.HWND, ctypes.c_int, ctypes.c_int,
+        ctypes.c_int, ctypes.c_int, ctypes.c_uint,
     ]
     user32.SetWindowPos.restype = wintypes.BOOL
+    user32.GetForegroundWindow.restype = wintypes.HWND
+    user32.GetWindowThreadProcessId.argtypes = [wintypes.HWND, ctypes.POINTER(wintypes.DWORD)]
+    user32.GetWindowThreadProcessId.restype = wintypes.DWORD
+    user32.AttachThreadInput.argtypes = [wintypes.DWORD, wintypes.DWORD, wintypes.BOOL]
+    user32.AttachThreadInput.restype = wintypes.BOOL
+    user32.SetForegroundWindow.argtypes = [wintypes.HWND]
+    user32.SetForegroundWindow.restype = wintypes.BOOL
+    user32.BringWindowToTop.argtypes = [wintypes.HWND]
+    user32.BringWindowToTop.restype = wintypes.BOOL
+    user32.ShowWindow.argtypes = [wintypes.HWND, ctypes.c_int]
+    user32.ShowWindow.restype = wintypes.BOOL
+    user32.IsIconic.argtypes = [wintypes.HWND]
+    user32.IsIconic.restype = wintypes.BOOL
+    user32.GetWindowLongPtrW.argtypes = [wintypes.HWND, ctypes.c_int]
+    user32.GetWindowLongPtrW.restype = ctypes.c_longlong
+    user32.SetWindowLongPtrW.argtypes = [wintypes.HWND, ctypes.c_int, ctypes.c_longlong]
+    user32.SetWindowLongPtrW.restype = ctypes.c_longlong
+    user32.GetSystemMenu.argtypes = [wintypes.HWND, wintypes.BOOL]
+    user32.GetSystemMenu.restype = wintypes.HMENU
+    user32.EnableMenuItem.argtypes = [wintypes.HMENU, wintypes.UINT, wintypes.UINT]
+    user32.EnableMenuItem.restype = wintypes.BOOL
+    kernel32.GetCurrentThreadId.restype = wintypes.DWORD
+
     WNDENUMPROC = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
     HWND_TOPMOST = wintypes.HWND(-1)
+    GWL_STYLE = -16
+    WS_MINIMIZEBOX = 0x00020000
+    WS_MAXIMIZEBOX = 0x00010000
+    SC_CLOSE = 0xF060
+    MF_BYCOMMAND = 0x00000000
+    MF_GRAYED = 0x00000001
+    SW_RESTORE = 9
     titulo_objetivo = "Profe Inglés — Entrenador"
 
     def _forzar() -> None:
+        configurado = False
         while proc.poll() is None:
             def _enum_cb(hwnd, _lparam):
+                nonlocal configurado
                 if not user32.IsWindowVisible(hwnd):
                     return True
                 length = user32.GetWindowTextLengthW(hwnd)
@@ -286,12 +315,37 @@ def mantener_siempre_encima(proc: subprocess.Popen) -> None:
                     buf = ctypes.create_unicode_buffer(length + 1)
                     user32.GetWindowTextW(hwnd, buf, length + 1)
                     if titulo_objetivo in buf.value:
-                        # SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE = 0x0013
-                        user32.SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, 0x0013)
+                        if not configurado:
+                            # Quitar botones minimizar y maximizar manteniendo barra arrastrable
+                            style = user32.GetWindowLongPtrW(hwnd, GWL_STYLE)
+                            style &= ~(WS_MINIMIZEBOX | WS_MAXIMIZEBOX)
+                            user32.SetWindowLongPtrW(hwnd, GWL_STYLE, style)
+                            # Deshabilitar botón cerrar (X) y Alt+F4
+                            hmenu = user32.GetSystemMenu(hwnd, False)
+                            if hmenu:
+                                user32.EnableMenuItem(hmenu, SC_CLOSE, MF_BYCOMMAND | MF_GRAYED)
+
+                            # Traer a primer plano real saltando bloqueo de foco de Windows
+                            fg = user32.GetForegroundWindow()
+                            fg_tid = user32.GetWindowThreadProcessId(fg, None) if fg else 0
+                            cur_tid = kernel32.GetCurrentThreadId()
+                            if fg_tid and fg_tid != cur_tid:
+                                user32.AttachThreadInput(cur_tid, fg_tid, True)
+                            user32.ShowWindow(hwnd, SW_RESTORE)
+                            user32.SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, 0x0023)
+                            user32.SetForegroundWindow(hwnd)
+                            user32.BringWindowToTop(hwnd)
+                            if fg_tid and fg_tid != cur_tid:
+                                user32.AttachThreadInput(cur_tid, fg_tid, False)
+                            configurado = True
+                        else:
+                            if user32.IsIconic(hwnd):
+                                user32.ShowWindow(hwnd, SW_RESTORE)
+                            user32.SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, 0x0013)
                 return True
 
             user32.EnumWindows(WNDENUMPROC(_enum_cb), 0)
-            time.sleep(0.5)
+            time.sleep(0.4)
 
     threading.Thread(target=_forzar, daemon=True).start()
 
