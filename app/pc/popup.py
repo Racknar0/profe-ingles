@@ -193,11 +193,11 @@ def abrir_ventana_moderna(puerto: int, navegador: str) -> subprocess.Popen:
     sw, sh = obtener_pantalla()
     x = max(0, (sw - ancho) // 2)
     y = max(0, (sh - alto) // 2)
-    perfil = Path(tempfile.gettempdir()) / "profe_ingles_popup_profile"
-    perfil.mkdir(exist_ok=True)
+    perfil = Path(tempfile.mkdtemp(prefix="profe_ingles_popup_"))
     args = [
         navegador,
         f"--app=http://127.0.0.1:{puerto}/",
+        "--new-window",
         f"--window-size={ancho},{alto}",
         f"--window-position={x},{y}",
         f"--user-data-dir={perfil}",
