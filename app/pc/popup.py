@@ -297,7 +297,7 @@ def mantener_siempre_encima(proc: subprocess.Popen) -> None:
 
 def abrir_ventana_moderna(puerto: int, navegador: str) -> subprocess.Popen:
     """Abre el pop-up moderno centrado usando Chrome/Edge en modo --app."""
-    ancho, alto = 760, 620
+    ancho, alto = 900, 620
     sw, sh = obtener_pantalla()
     x = max(0, (sw - ancho) // 2)
     y = max(0, (sh - alto) // 2)
