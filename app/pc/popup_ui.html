@@ -171,6 +171,30 @@
       margin-top: 3px;
     }
 
+    .formula-box {
+      background: rgba(56, 189, 248, 0.14);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: var(--accent);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .gram-example {
+      background: rgba(15, 23, 42, 0.6);
+      border-left: 3px solid var(--success);
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .gram-example-en { font-size: 16px; font-weight: 600; color: #f8fafc; margin: 0; }
+    .gram-example-es { font-size: 13px; color: var(--muted); margin: 2px 0 0; }
+
     .controls {
       display: flex;
       justify-content: space-between;
@@ -263,12 +287,22 @@
   </header>
 
   <main class="card">
-    <p class="prompt-label">¿Cómo lo dices en inglés?</p>
-    <h1 id="question" class="question">—</h1>
+    <div id="quiz-body">
+      <p class="prompt-label">¿Cómo lo dices en inglés?</p>
+      <h1 id="question" class="question" style="margin-top:12px;">—</h1>
 
-    <div id="answer-box" class="answer-box hidden">
-      <p id="answer-en" class="answer-en"></p>
-      <div id="extra" class="extra"></div>
+      <div id="answer-box" class="answer-box hidden" style="margin-top:18px;">
+        <p id="answer-en" class="answer-en"></p>
+        <div id="extra" class="extra"></div>
+      </div>
+    </div>
+
+    <div id="gram-body" class="hidden" style="display:flex;flex-direction:column;gap:12px;">
+      <p class="prompt-label">💊 Repaso rápido de gramática</p>
+      <h1 id="gram-title" class="question" style="font-size:23px;">—</h1>
+      <p id="gram-uso" class="extra"></p>
+      <div id="gram-formula" class="formula-box"></div>
+      <div id="gram-examples" style="display:flex;flex-direction:column;gap:8px;"></div>
     </div>
   </main>
 
@@ -277,6 +311,7 @@
       <button id="btn-reveal" class="btn-primary" type="button">👀 Ver respuesta</button>
       <button id="btn-ok" class="btn-success hidden" type="button">✅ Lo dominé</button>
       <button id="btn-repasar" class="btn-warn hidden" type="button">🔁 Repasar</button>
+      <button id="btn-gram-done" class="btn-success hidden" type="button">✅ Leído, listo</button>
       <button id="btn-audio" class="btn-secondary" type="button">🔊 Escuchar</button>
       <button id="btn-slow" class="btn-secondary" type="button">🐢 0.75x</button>
     </div>
@@ -318,9 +353,51 @@
 
       document.getElementById("tag-pill").textContent = `${item.tipo} · Día ${item.dia} (${item.episodio})`;
       document.getElementById("round-counter").textContent = `${state.index + 1} de ${state.items.length}`;
+      renderDots(item.nivel || 0);
+
+      const quizBody = document.getElementById("quiz-body");
+      const gramBody = document.getElementById("gram-body");
+
+      if (item.es_gramatica) {
+        quizBody.classList.add("hidden");
+        gramBody.classList.remove("hidden");
+        document.getElementById("gram-title").textContent = item.titulo;
+        document.getElementById("gram-uso").textContent = item.uso;
+        document.getElementById("gram-formula").textContent = item.formula;
+
+        const exWrap = document.getElementById("gram-examples");
+        exWrap.innerHTML = "";
+        (item.ejemplos || []).forEach(ex => {
+          const row = document.createElement("div");
+          row.className = "gram-example";
+          row.innerHTML = `<div><p class="gram-example-en">${ex.en}</p><p class="gram-example-es">${ex.es}</p></div>`;
+          const btn = document.createElement("button");
+          btn.className = "btn-secondary";
+          btn.type = "button";
+          btn.style.padding = "8px 12px";
+          btn.textContent = "🔊";
+          btn.addEventListener("click", () => speak(ex.en, 1.0));
+          row.appendChild(btn);
+          exWrap.appendChild(row);
+        });
+
+        document.getElementById("btn-reveal").classList.add("hidden");
+        document.getElementById("btn-ok").classList.add("hidden");
+        document.getElementById("btn-repasar").classList.add("hidden");
+        document.getElementById("btn-audio").classList.add("hidden");
+        document.getElementById("btn-slow").classList.add("hidden");
+        document.getElementById("btn-gram-done").classList.remove("hidden");
+        return;
+      }
+
+      gramBody.classList.add("hidden");
+      quizBody.classList.remove("hidden");
+      document.getElementById("btn-audio").classList.remove("hidden");
+      document.getElementById("btn-slow").classList.remove("hidden");
+      document.getElementById("btn-gram-done").classList.add("hidden");
+
       document.getElementById("question").textContent = item.pregunta;
       document.getElementById("answer-en").textContent = item.respuesta;
-      renderDots(item.nivel || 0);
 
       const extraEl = document.getElementById("extra");
       extraEl.innerHTML = "";
@@ -386,6 +463,7 @@
     });
     document.getElementById("btn-ok").addEventListener("click", () => rate(1));
     document.getElementById("btn-repasar").addEventListener("click", () => rate(-1));
+    document.getElementById("btn-gram-done").addEventListener("click", () => rate(1));
     document.getElementById("btn-10m").addEventListener("click", () => finishRound(10));
     document.getElementById("btn-later").addEventListener("click", () => finishRound(null));
 

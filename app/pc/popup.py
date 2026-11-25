@@ -80,12 +80,15 @@ class EntrenadorState:
         self.ronda_actual: list[dict] = []
         self.salir = False
 
-    def obtener_items(self) -> list[dict]:
-        """Construye la lista unificada de vocabulario y frases desde data/banco.json."""
-        banco = cargar_json(BANCO_PATH, {"vocabulario": [], "frases": []})
-        items: list[dict] = []
+    def obtener_items(self) -> tuple[list[dict], list[dict], list[dict]]:
+        """Construye listas separadas de vocabulario, frases y píldoras gramaticales."""
+        banco = cargar_json(BANCO_PATH, {"vocabulario": [], "frases": [], "gramatica": []})
+        vocab: list[dict] = []
+        frases: list[dict] = []
+        gramatica: list[dict] = []
+
         for v in banco.get("vocabulario", []):
-            items.append(
+            vocab.append(
                 {
                     "id": v["id"],
                     "tipo": "Vocabulario",
@@ -95,11 +98,12 @@ class EntrenadorState:
                     "respuesta": v["en"],
                     "extra": f"Ejemplo: {v.get('ejemplo', '')}" if v.get("ejemplo") else "",
                     "bloques": [],
+                    "es_gramatica": False,
                     "nivel": self.progreso.get(v["id"], 0),
                 }
             )
         for f in banco.get("frases", []):
-            items.append(
+            frases.append(
                 {
                     "id": f["id"],
                     "tipo": f"Shadowing ({f.get('personaje', 'Friends')})",
@@ -109,24 +113,43 @@ class EntrenadorState:
                     "respuesta": f["en"],
                     "extra": "",
                     "bloques": f.get("bloques", []),
+                    "es_gramatica": False,
                     "nivel": self.progreso.get(f["id"], 0),
                 }
             )
-        return items
+        for g in banco.get("gramatica", []):
+            gramatica.append(
+                {
+                    "id": g["id"],
+                    "tipo": "Píldora Gramatical",
+                    "dia": g.get("dia", "?"),
+                    "episodio": g.get("episodio", ""),
+                    "titulo": g.get("titulo", ""),
+                    "uso": g.get("uso", ""),
+                    "formula": g.get("formula", ""),
+                    "ejemplos": g.get("ejemplos", []),
+                    "es_gramatica": True,
+                    "nivel": self.progreso.get(g["id"], 0),
+                }
+            )
+        return vocab, frases, gramatica
+
+    def _elegir_ponderado(self, pool: list[dict]) -> dict | None:
+        if not pool:
+            return None
+        pesos = [max(1, 6 - it["nivel"]) for it in pool]
+        return random.choices(pool, weights=pesos, k=1)[0]
 
     def preparar_ronda(self) -> list[dict]:
-        """Elige N preguntas únicas ponderadas por menor nivel de dominio."""
-        items = self.obtener_items()
-        if not items:
-            return []
-        cantidad = min(int(self.config.get("preguntas_por_sesion", 2)), len(items))
+        """Arma una ronda completa de 3 pilares: 1 Vocabulario + 1 Shadowing + 1 Gramática."""
+        vocab, frases, gramatica = self.obtener_items()
         seleccionados: list[dict] = []
-        pool = items[:]
-        for _ in range(cantidad):
-            pesos = [max(1, 6 - it["nivel"]) for it in pool]
-            elegido = random.choices(pool, weights=pesos, k=1)[0]
-            seleccionados.append(elegido)
-            pool.remove(elegido)
+
+        for pool in (vocab, frases, gramatica):
+            elegido = self._elegir_ponderado(pool)
+            if elegido:
+                seleccionados.append(elegido)
+
         self.ronda_actual = seleccionados
         return seleccionados
 
