@@ -14,8 +14,7 @@ window.BANCO_DATA = {
       "episodio": "S01E02",
       "en": "That's not why",
       "es": "Esa no es la razón por la que...",
-      "ejemplo": "That's not why I'm calling you.",
-      "nivel": 0
+      "ejemplo": "That's not why I'm calling you."
     },
     {
       "id": "v_d21_2",
@@ -23,44 +22,263 @@ window.BANCO_DATA = {
       "episodio": "S01E02",
       "en": "Otherwise",
       "es": "De lo contrario / Si no...",
-      "ejemplo": "Otherwise next time you're gonna find yourself sitting at home.",
-      "nivel": 0
+      "ejemplo": "Otherwise next time you're gonna find yourself sitting at home."
     },
     {
-      "id": "v_e01_1",
-      "dia": 20,
+      "id": "v_d19_1",
+      "dia": 19,
       "episodio": "S01E01",
-      "en": "Grab a spoon",
-      "es": "Tomar una cuchara (aprovechar las oportunidades / lanzarse)",
-      "ejemplo": "There are plenty of spoons out there, just grab a spoon.",
-      "nivel": 1
+      "en": "Crash on the couch",
+      "es": "Quedarse a dormir en el sofá",
+      "ejemplo": "You gonna crash on the couch?"
     },
     {
-      "id": "v_e01_2",
-      "dia": 20,
+      "id": "v_d19_2",
+      "dia": 19,
+      "episodio": "S01E01",
+      "en": "I had a major crush on you",
+      "es": "Me gustabas muchísimo / estaba loquito por ti",
+      "ejemplo": "In high school, I had a major crush on you."
+    },
+    {
+      "id": "v_d18_1",
+      "dia": 18,
+      "episodio": "S01E01",
+      "en": "Give someone a break",
+      "es": "Darle un respiro / una tregua a alguien (no presionar)",
+      "ejemplo": "Give her a break, it's hard being on your own for the first time."
+    },
+    {
+      "id": "v_d18_2",
+      "dia": 18,
+      "episodio": "S01E01",
+      "en": "On your own",
+      "es": "Por tu cuenta / solo",
+      "ejemplo": "It's hard being on your own for the first time."
+    },
+    {
+      "id": "v_d18_3",
+      "dia": 18,
       "episodio": "S01E01",
       "en": "It sucks",
       "es": "Es una porquería / Qué mal / Apesta",
-      "ejemplo": "Welcome to the real world. It sucks. You're gonna love it!",
-      "nivel": 1
+      "ejemplo": "Welcome to the real world! It sucks. You're gonna love it!"
     },
     {
-      "id": "v_e01_3",
-      "dia": 20,
-      "episodio": "S01E01",
-      "en": "How should I know?",
-      "es": "¿Cómo voy a saberlo? / ¿Yo qué sé?",
-      "ejemplo": "How should I know? Nobody told me anything.",
-      "nivel": 1
-    },
-    {
-      "id": "v_e01_4",
-      "dia": 20,
+      "id": "v_d17_1",
+      "dia": 17,
       "episodio": "S01E01",
       "en": "Laughed out of twelve interviews",
       "es": "Se me rieron en la cara en doce entrevistas",
-      "ejemplo": "I've been laughed out of twelve interviews today.",
-      "nivel": 1
+      "ejemplo": "Are you kidding? I was laughed out of twelve interviews today."
+    },
+    {
+      "id": "v_d17_2",
+      "dia": 17,
+      "episodio": "S01E01",
+      "en": "Upbeat",
+      "es": "Optimista / animado / con energía positiva",
+      "ejemplo": "And yet you're surprisingly upbeat."
+    },
+    {
+      "id": "v_d16_1",
+      "dia": 16,
+      "episodio": "S01E01",
+      "en": "Why would anybody...?",
+      "es": "¿Por qué alguien haría...?",
+      "ejemplo": "Why would anybody do something like that?"
+    },
+    {
+      "id": "v_d15_1",
+      "dia": 15,
+      "episodio": "S01E01",
+      "en": "Slept with a hanger in your mouth",
+      "es": "Tener una sonrisa gigante de oreja a oreja",
+      "ejemplo": "You look like you slept with a hanger in your mouth."
+    },
+    {
+      "id": "v_d14_1",
+      "dia": 14,
+      "episodio": "S01E01",
+      "en": "What the hell...?",
+      "es": "¿Qué diablos / qué carajos...?",
+      "ejemplo": "What the hell do you do on a real date?"
+    },
+    {
+      "id": "v_d14_2",
+      "dia": 14,
+      "episodio": "S01E01",
+      "en": "I will not take this abuse",
+      "es": "No voy a tolerar este abuso / estas burlas",
+      "ejemplo": "I will not take this abuse."
+    },
+    {
+      "id": "v_d13_1",
+      "dia": 13,
+      "episodio": "S01E01",
+      "en": "Get it together",
+      "es": "Recomponerse / organizarse / controlarse",
+      "ejemplo": "Even if I could get it together enough to ask a woman out..."
+    },
+    {
+      "id": "v_d13_2",
+      "dia": 13,
+      "episodio": "S01E01",
+      "en": "Be on a roll",
+      "es": "Estar en racha / estar embalado",
+      "ejemplo": "While you're on a roll, make a Western omelet."
+    },
+    {
+      "id": "v_d12_1",
+      "dia": 12,
+      "episodio": "S01E01",
+      "en": "What were you gonna say?",
+      "es": "¿Qué ibas a decir?",
+      "ejemplo": "What were you gonna say?"
+    },
+    {
+      "id": "v_d12_2",
+      "dia": 12,
+      "episodio": "S01E01",
+      "en": "I'm glad you...",
+      "es": "Me alegro de que hayas...",
+      "ejemplo": "I'm glad you smashed her watch!"
+    },
+    {
+      "id": "v_d11_1",
+      "dia": 11,
+      "episodio": "S01E01",
+      "en": "Grab a spoon",
+      "es": "Tomar una cuchara (aprovechar las oportunidades / lanzarse)",
+      "ejemplo": "Welcome back to the world! Grab a spoon!"
+    },
+    {
+      "id": "v_d10_1",
+      "dia": 10,
+      "episodio": "S01E01",
+      "en": "Get through it",
+      "es": "Superarlo / atravesar un momento difícil",
+      "ejemplo": "How did you get through it?"
+    },
+    {
+      "id": "v_d10_2",
+      "dia": 10,
+      "episodio": "S01E01",
+      "en": "Actually",
+      "es": "De verdad / en realidad / en serio (NO 'actualmente')",
+      "ejemplo": "You actually broke her watch?"
+    },
+    {
+      "id": "v_d10_3",
+      "dia": 10,
+      "episodio": "S01E01",
+      "en": "Steer clear of",
+      "es": "Mantenerse alejado de alguien",
+      "ejemplo": "Ooh, steer clear of you."
+    },
+    {
+      "id": "v_d9_1",
+      "dia": 9,
+      "episodio": "S01E01",
+      "en": "Let me ask you a question",
+      "es": "Déjame hacerte una pregunta",
+      "ejemplo": "Let me ask you a question."
+    },
+    {
+      "id": "v_d9_2",
+      "dia": 9,
+      "episodio": "S01E01",
+      "en": "I should have known",
+      "es": "Debí haberlo sabido / Me lo hubiera imaginado",
+      "ejemplo": "I should have known."
+    },
+    {
+      "id": "v_d9_3",
+      "dia": 9,
+      "episodio": "S01E01",
+      "en": "You got screwed",
+      "es": "Te jodieron / Saliste perdiendo",
+      "ejemplo": "You got screwed."
+    },
+    {
+      "id": "v_d8_1",
+      "dia": 8,
+      "episodio": "S01E01",
+      "en": "What're you up to tonight?",
+      "es": "¿Qué planes tienes para hoy en la noche?",
+      "ejemplo": "What're you up to tonight?"
+    },
+    {
+      "id": "v_d8_2",
+      "dia": 8,
+      "episodio": "S01E01",
+      "en": "I wish I could, but I don't want to",
+      "es": "Ojalá pudiera, pero no quiero",
+      "ejemplo": "Oh, I wish I could, but I don't want to."
+    },
+    {
+      "id": "v_d7_1",
+      "dia": 7,
+      "episodio": "S01E01",
+      "en": "Ask someone out",
+      "es": "Invitar a salir a alguien (cita)",
+      "ejemplo": "He finally asked you out?"
+    },
+    {
+      "id": "v_d7_2",
+      "dia": 7,
+      "episodio": "S01E01",
+      "en": "I didn't catch your name",
+      "es": "No alcancé a escuchar tu nombre / ¿Cómo dijiste que te llamas?",
+      "ejemplo": "I'm sorry, I didn't catch your name."
+    },
+    {
+      "id": "v_d6_1",
+      "dia": 6,
+      "episodio": "S01E01",
+      "en": "Hit on someone",
+      "es": "Coquetear / ligar con alguien",
+      "ejemplo": "Joey, stop hitting on her!"
+    },
+    {
+      "id": "v_d5_1",
+      "dia": 5,
+      "episodio": "S01E01",
+      "en": "It matters to me",
+      "es": "A mí sí me importa",
+      "ejemplo": "Well, it matters to me!"
+    },
+    {
+      "id": "v_d4_1",
+      "dia": 4,
+      "episodio": "S01E01",
+      "en": "Kinda (kind of)",
+      "es": "Como que / un poco / más o menos",
+      "ejemplo": "I was kinda hoping that wouldn't be an issue."
+    },
+    {
+      "id": "v_d3_1",
+      "dia": 3,
+      "episodio": "S01E01",
+      "en": "How should I know?",
+      "es": "¿Cómo voy a saberlo? / ¿Yo qué sé?",
+      "ejemplo": "How should I know?"
+    },
+    {
+      "id": "v_d3_2",
+      "dia": 3,
+      "episodio": "S01E01",
+      "en": "Did I say that out loud?",
+      "es": "¿Dije eso en voz alta?",
+      "ejemplo": "Did I say that out loud?"
+    },
+    {
+      "id": "v_d2_1",
+      "dia": 2,
+      "episodio": "S01E01",
+      "en": "To hell with her",
+      "es": "Al diablo con ella",
+      "ejemplo": "To hell with her, she left me!"
     }
   ],
   "frases": [
@@ -99,6 +317,486 @@ window.BANCO_DATA = {
           "fonetica": "lísening tu dat álbum alón"
         }
       ]
+    },
+    {
+      "id": "f_d19_1",
+      "dia": 19,
+      "episodio": "S01E01",
+      "personaje": "Monica",
+      "en": "Well, that's it. You gonna crash on the couch?",
+      "es": "Bueno, eso es todo. ¿Te vas a quedar a dormir en el sofá?",
+      "bloques": [
+        {
+          "en": "Well, that's it. You gonna crash on the couch?",
+          "fonetica": "Wel, dats it. Yu góna krash on de kauch?"
+        }
+      ]
+    },
+    {
+      "id": "f_d19_2",
+      "dia": 19,
+      "episodio": "S01E01",
+      "personaje": "Ross",
+      "en": "Do you think it would be okay if I asked you out?",
+      "es": "¿Crees que estaría bien si te invito a salir?",
+      "bloques": [
+        {
+          "en": "Do you think it would be okay if I asked you out?",
+          "fonetica": "D'ya-think it-wud-be-okay if-ai as-tcha-out?"
+        }
+      ]
+    },
+    {
+      "id": "f_d18_1",
+      "dia": 18,
+      "episodio": "S01E01",
+      "personaje": "Phoebe",
+      "en": "Give her a break, it's hard being on your own for the first time.",
+      "es": "Dale un respiro, es difícil estar por tu cuenta por primera vez.",
+      "bloques": [
+        {
+          "en": "Give her a break, it's hard being on your own for the first time.",
+          "fonetica": "Giv-er-a breik, its jard bíing on yor óun for de ferst taim"
+        }
+      ]
+    },
+    {
+      "id": "f_d18_2",
+      "dia": 18,
+      "episodio": "S01E01",
+      "personaje": "Monica",
+      "en": "Welcome to the real world! It sucks. You're gonna love it!",
+      "es": "¡Bienvenida al mundo real! Apesta. ¡Te va a encantar!",
+      "bloques": [
+        {
+          "en": "Welcome to the real world! It sucks. You're gonna love it!",
+          "fonetica": "Wel-come to-the real-world! It-sucks. Yer-gonna love-it!"
+        }
+      ]
+    },
+    {
+      "id": "f_d17_1",
+      "dia": 17,
+      "episodio": "S01E01",
+      "personaje": "Rachel",
+      "en": "Are you kidding? I was laughed out of twelve interviews today.",
+      "es": "¿Estás bromeando? Hoy se me rieron en la cara en doce entrevistas.",
+      "bloques": [
+        {
+          "en": "Are you kidding? I was laughed out of twelve interviews today.",
+          "fonetica": "Ar-ya kidding? Ai-was-laft-ou-dov twelve-interviews today"
+        }
+      ]
+    },
+    {
+      "id": "f_d17_2",
+      "dia": 17,
+      "episodio": "S01E01",
+      "personaje": "Chandler",
+      "en": "And yet you're surprisingly upbeat.",
+      "es": "Y aún así estás sorprendentemente animada.",
+      "bloques": [
+        {
+          "en": "And yet you're surprisingly upbeat.",
+          "fonetica": "An-yet yer-surprisingly up-beat"
+        }
+      ]
+    },
+    {
+      "id": "f_d16_1",
+      "dia": 16,
+      "episodio": "S01E01",
+      "personaje": "Monica",
+      "en": "Why would anybody do something like that?",
+      "es": "¿Por qué alguien haría algo así?",
+      "bloques": [
+        {
+          "en": "Why would anybody do something like that?",
+          "fonetica": "Why-wud-anybody do something-laik-that?"
+        }
+      ]
+    },
+    {
+      "id": "f_d16_2",
+      "dia": 16,
+      "episodio": "S01E01",
+      "personaje": "Ross",
+      "en": "I assume we're looking for an answer more sophisticated than 'to get you into bed'.",
+      "es": "Asumo que estamos buscando una respuesta más sofisticada que 'para llevarte a la cama'.",
+      "bloques": [
+        {
+          "en": "I assume we're looking for an answer more sophisticated",
+          "fonetica": "Ai-assume we're-looking-fer-an-answer more-sophisticated"
+        },
+        {
+          "en": "than 'to get you into bed'.",
+          "fonetica": "than-to-geddya-into-bed"
+        }
+      ]
+    },
+    {
+      "id": "f_d15_1",
+      "dia": 15,
+      "episodio": "S01E01",
+      "personaje": "Monica",
+      "en": "I'm just going to get up, go to work, and not think about him all day.",
+      "es": "Solo voy a levantarme, ir al trabajo y no pensar en él en todo el día.",
+      "bloques": [
+        {
+          "en": "I'm just going to get up, go to work, and not think about him all day.",
+          "fonetica": "Aim-jus-gonna geddup, go-to-work, an-not think-about-im all-day"
+        }
+      ]
+    },
+    {
+      "id": "f_d15_2",
+      "dia": 15,
+      "episodio": "S01E01",
+      "personaje": "Rachel",
+      "en": "You look like you slept with a hanger in your mouth.",
+      "es": "Parece que hubieras dormido con un gancho de ropa en la boca.",
+      "bloques": [
+        {
+          "en": "You look like you slept with a hanger in your mouth.",
+          "fonetica": "Ya look-laik ya slept-with-a hanger in-yer-mouth"
+        }
+      ]
+    },
+    {
+      "id": "f_d14_1",
+      "dia": 14,
+      "episodio": "S01E01",
+      "personaje": "Joey",
+      "en": "What the hell do you do on a real date?",
+      "es": "¿Qué diablos haces en una cita de verdad?",
+      "bloques": [
+        {
+          "en": "What the hell do you do on a real date?",
+          "fonetica": "Wat de jel du yu du on a rial deit?"
+        }
+      ]
+    },
+    {
+      "id": "f_d14_2",
+      "dia": 14,
+      "episodio": "S01E01",
+      "personaje": "Rachel",
+      "en": "Would I have seen you in anything?",
+      "es": "¿Te habré visto en algo (alguna serie/obra)?",
+      "bloques": [
+        {
+          "en": "Would I have seen you in anything?",
+          "fonetica": "Wud-ai-av seen you in anything?"
+        }
+      ]
+    },
+    {
+      "id": "f_d13_1",
+      "dia": 13,
+      "episodio": "S01E01",
+      "personaje": "Ross",
+      "en": "Even if I could get it together enough to ask a woman out...",
+      "es": "Incluso si pudiera recomponerme lo suficiente como para invitar a salir a una mujer...",
+      "bloques": [
+        {
+          "en": "Even if I could get it together enough to ask a woman out...",
+          "fonetica": "I-ven-if-ai-cud geddit-together-enough to ask-a-woman-out"
+        }
+      ]
+    },
+    {
+      "id": "f_d13_2",
+      "dia": 13,
+      "episodio": "S01E01",
+      "personaje": "Joey",
+      "en": "While you're on a roll, if you feel like you gotta make like a Western omelet...",
+      "es": "Ya que estás en racha, si sientes ganas de prepararte un omelet o algo...",
+      "bloques": [
+        {
+          "en": "While you're on a roll, if you feel like you gotta make like a Western omelet...",
+          "fonetica": "Whil-yuron-a roll, if-ya feel like ya gotta make laik-a Western omelet"
+        }
+      ]
+    },
+    {
+      "id": "f_d12_1",
+      "dia": 12,
+      "episodio": "S01E01",
+      "personaje": "Monica",
+      "en": "What were you gonna say?",
+      "es": "¿Qué ibas a decir?",
+      "bloques": [
+        {
+          "en": "What were you gonna say?",
+          "fonetica": "Wha-wer-you gonna say?"
+        }
+      ]
+    },
+    {
+      "id": "f_d12_2",
+      "dia": 12,
+      "episodio": "S01E01",
+      "personaje": "Monica",
+      "en": "I'm glad you smashed her watch!",
+      "es": "¡Me alegro de que le hayas destrozado el reloj!",
+      "bloques": [
+        {
+          "en": "I'm glad you smashed her watch!",
+          "fonetica": "aim-gla-jou smashed-her watch!"
+        }
+      ]
+    },
+    {
+      "id": "f_d11_1",
+      "dia": 11,
+      "episodio": "S01E01",
+      "personaje": "Joey",
+      "en": "Lemme tell you something, Ross.",
+      "es": "Déjame decirte algo, Ross.",
+      "bloques": [
+        {
+          "en": "Lemme tell you something, Ross.",
+          "fonetica": "Lem-me tel-ya something, Ross"
+        }
+      ]
+    },
+    {
+      "id": "f_d11_2",
+      "dia": 11,
+      "episodio": "S01E01",
+      "personaje": "Joey",
+      "en": "This is the best thing that ever happened to you!",
+      "es": "¡Esto es lo mejor que te ha pasado en la vida!",
+      "bloques": [
+        {
+          "en": "This is the best thing that ever happened to you!",
+          "fonetica": "This is the best thing da-tever happened-to-ya!"
+        }
+      ]
+    },
+    {
+      "id": "f_d9_1",
+      "dia": 9,
+      "episodio": "S01E01",
+      "personaje": "Joey",
+      "en": "Let me ask you a question.",
+      "es": "Déjame hacerte una pregunta.",
+      "bloques": [
+        {
+          "en": "Let me ask you a question.",
+          "fonetica": "Lem-me as-kya question"
+        }
+      ]
+    },
+    {
+      "id": "f_d9_2",
+      "dia": 9,
+      "episodio": "S01E01",
+      "personaje": "Ross",
+      "en": "I should have known.",
+      "es": "Debí haberlo sabido.",
+      "bloques": [
+        {
+          "en": "I should have known.",
+          "fonetica": "ai-shuda-known"
+        }
+      ]
+    },
+    {
+      "id": "f_d8_1",
+      "dia": 8,
+      "episodio": "S01E01",
+      "personaje": "Ross",
+      "en": "What're you up to tonight?",
+      "es": "¿Qué planes tienes para hoy en la noche?",
+      "bloques": [
+        {
+          "en": "What're you up to tonight?",
+          "fonetica": "Wha-tcha-up-to tonight?"
+        }
+      ]
+    },
+    {
+      "id": "f_d8_2",
+      "dia": 8,
+      "episodio": "S01E01",
+      "personaje": "Phoebe",
+      "en": "Oh, I wish I could, but I don't want to.",
+      "es": "Oh, ojalá pudiera, pero no quiero.",
+      "bloques": [
+        {
+          "en": "Oh, I wish I could, but I don't want to.",
+          "fonetica": "Oh, ai wi-shai-cud, but ai don't wanna"
+        }
+      ]
+    },
+    {
+      "id": "f_d7_1",
+      "dia": 7,
+      "episodio": "S01E01",
+      "personaje": "Ross",
+      "en": "He finally asked you out?",
+      "es": "¿Por fin te invitó a salir?",
+      "bloques": [
+        {
+          "en": "He finally asked you out?",
+          "fonetica": "Ji fainali as-chew-out?"
+        }
+      ]
+    },
+    {
+      "id": "f_d7_2",
+      "dia": 7,
+      "episodio": "S01E01",
+      "personaje": "Chandler",
+      "en": "I'm sorry, I didn't catch your name.",
+      "es": "Disculpa, no alcancé a escuchar tu nombre.",
+      "bloques": [
+        {
+          "en": "I'm sorry, I didn't catch your name.",
+          "fonetica": "I'm sorry, I didn't cat-cher name"
+        }
+      ]
+    },
+    {
+      "id": "f_d6_1",
+      "dia": 6,
+      "episodio": "S01E01",
+      "personaje": "Monica",
+      "en": "Joey, stop hitting on her!",
+      "es": "¡Joey, deja de coquetear con ella!",
+      "bloques": [
+        {
+          "en": "Joey, stop hitting on her!",
+          "fonetica": "Joey, stop-hit-ting-on-her!"
+        }
+      ]
+    },
+    {
+      "id": "f_d6_2",
+      "dia": 6,
+      "episodio": "S01E01",
+      "personaje": "Joey",
+      "en": "What, like there's a rule or something?",
+      "es": "¿Qué, acaso hay una regla o algo?",
+      "bloques": [
+        {
+          "en": "What, like there's a rule or something?",
+          "fonetica": "Wat, laik-therza-rule or-something?"
+        }
+      ]
+    },
+    {
+      "id": "f_d5_1",
+      "dia": 5,
+      "episodio": "S01E01",
+      "personaje": "Rachel",
+      "en": "Well, it matters to me!",
+      "es": "¡Bueno, a mí sí me importa!",
+      "bloques": [
+        {
+          "en": "Well, it matters to me!",
+          "fonetica": "Wel-it-matters to me!"
+        }
+      ]
+    },
+    {
+      "id": "f_d5_2",
+      "dia": 5,
+      "episodio": "S01E01",
+      "personaje": "Rachel",
+      "en": "Wait!! Wait, I said maybe!!",
+      "es": "¡¡Espera!! ¡¡Espera, dije tal vez!!",
+      "bloques": [
+        {
+          "en": "Wait!! Wait, I said maybe!!",
+          "fonetica": "Weit!! Weit, ai-sed meibi!!"
+        }
+      ]
+    },
+    {
+      "id": "f_d4_1",
+      "dia": 4,
+      "episodio": "S01E01",
+      "personaje": "Rachel",
+      "en": "I just had to get out of there.",
+      "es": "Simplemente tenía que salir de ahí.",
+      "bloques": [
+        {
+          "en": "I just had to get out of there.",
+          "fonetica": "Ai yast jad tu ge-dou-dov-there"
+        }
+      ]
+    },
+    {
+      "id": "f_d4_2",
+      "dia": 4,
+      "episodio": "S01E01",
+      "personaje": "Rachel",
+      "en": "I was kinda hoping that wouldn't be an issue.",
+      "es": "Como que esperaba que eso no fuera un problema.",
+      "bloques": [
+        {
+          "en": "I was kinda hoping that wouldn't be an issue.",
+          "fonetica": "Ai was kinda joping dat wudn-bian issue"
+        }
+      ]
+    },
+    {
+      "id": "f_d3_1",
+      "dia": 3,
+      "episodio": "S01E01",
+      "personaje": "Ross",
+      "en": "How should I know?",
+      "es": "¿Cómo voy a saberlo?",
+      "bloques": [
+        {
+          "en": "How should I know?",
+          "fonetica": "How-shou-dai know?"
+        }
+      ]
+    },
+    {
+      "id": "f_d3_2",
+      "dia": 3,
+      "episodio": "S01E01",
+      "personaje": "Chandler",
+      "en": "Did I say that out loud?",
+      "es": "¿Dije eso en voz alta?",
+      "bloques": [
+        {
+          "en": "Did I say that out loud?",
+          "fonetica": "Di-dai sei dat aut laud?"
+        }
+      ]
+    },
+    {
+      "id": "f_d2_1",
+      "dia": 2,
+      "episodio": "S01E01",
+      "personaje": "Joey",
+      "en": "This guy says hello, I wanna kill myself.",
+      "es": "Este tipo dice hola y ya me quiero matar.",
+      "bloques": [
+        {
+          "en": "This guy says hello, I wanna kill myself.",
+          "fonetica": "Dis gai ses jeló, ai wana kil maiself"
+        }
+      ]
+    },
+    {
+      "id": "f_d2_2",
+      "dia": 2,
+      "episodio": "S01E01",
+      "personaje": "Ross",
+      "en": "To hell with her, she left me!",
+      "es": "¡Al diablo con ella, ella me dejó!",
+      "bloques": [
+        {
+          "en": "To hell with her, she left me!",
+          "fonetica": "To-hell-wither, she-left-me!"
+        }
+      ]
     }
   ],
   "gramatica": [
@@ -117,6 +815,42 @@ window.BANCO_DATA = {
         {
           "en": "This coffee is as good as yesterday's.",
           "es": "Este café está tan bueno como el de ayer."
+        }
+      ]
+    },
+    {
+      "id": "g_d19_1",
+      "dia": 19,
+      "episodio": "S01E01",
+      "titulo": "Pedir permiso o proponer con cortesía: Do you think it would be okay if I...",
+      "uso": "Sirve para pedir un favor o invitar a alguien de forma educada sin sonar invasivo.",
+      "formula": "Do you think it would be okay if I + [verbo en pasado]?",
+      "ejemplos": [
+        {
+          "en": "Do you think it would be okay if I asked you out?",
+          "es": "¿Crees que estaría bien si te invito a salir?"
+        },
+        {
+          "en": "Do you think it would be okay if I left early?",
+          "es": "¿Crees que estaría bien si salgo temprano?"
+        }
+      ]
+    },
+    {
+      "id": "g_d9_1",
+      "dia": 9,
+      "episodio": "S01E01",
+      "titulo": "Lamento o suposición pasada: Should have + participio",
+      "uso": "Sirve para decir 'debí haber...' o 'debería haber...'. En habla rápida suena 'shuda'.",
+      "formula": "[Sujeto] + should have + [participio]",
+      "ejemplos": [
+        {
+          "en": "I should have known.",
+          "es": "Debí haberlo sabido."
+        },
+        {
+          "en": "You should have told me.",
+          "es": "Me lo deberías haber dicho."
         }
       ]
     }

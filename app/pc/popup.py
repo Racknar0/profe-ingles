@@ -170,12 +170,14 @@ class PopupEntrenador:
         if self.config.get("siempre_encima", True):
             win.attributes("-topmost", True)
 
-        ancho, alto = 460, 390
+        ancho, alto = 480, 400
         sw = win.winfo_screenwidth()
         sh = win.winfo_screenheight()
-        x = sw - ancho - 24
-        y = sh - alto - 64
+        x = max(0, (sw - ancho) // 2)
+        y = max(0, (sh - alto) // 2)
         win.geometry(f"{ancho}x{alto}+{x}+{y}")
+        win.lift()
+        win.focus_force()
         win.protocol("WM_DELETE_WINDOW", self.posponer)
 
         # Cabecera
@@ -312,6 +314,19 @@ class PopupEntrenador:
             cursor="hand2",
         ).pack(side="right")
 
+        tk.Button(
+            actions,
+            text="⏰ 10 min",
+            command=lambda: self.posponer(10),
+            bg=COLORS["btn_bg"],
+            fg=COLORS["text"],
+            font=("Segoe UI", 8),
+            relief="flat",
+            padx=8,
+            pady=4,
+            cursor="hand2",
+        ).pack(side="right", padx=(0, 6))
+
     def revelar(self) -> None:
         """Muestra la respuesta en inglés, el detalle fonético/ejemplo y los botones de calificación."""
         if not self.item_actual:
@@ -342,11 +357,11 @@ class PopupEntrenador:
         else:
             self.posponer()
 
-    def posponer(self) -> None:
+    def posponer(self, minutos: int | None = None) -> None:
         """Cierra la ventana actual y programa el próximo aviso."""
         if self.ventana and self.ventana.winfo_exists():
             self.ventana.destroy()
-        self.programar_siguiente()
+        self.programar_siguiente(minutos)
 
     def run(self) -> None:
         """Inicia el bucle principal de Tkinter."""
