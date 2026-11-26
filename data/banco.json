@@ -2,11 +2,41 @@
   "meta": {
     "estudiante": "Camilo Torres",
     "serie": "Friends",
-    "ultimo_dia": 21,
+    "ultimo_dia": 22,
     "episodio_actual": "S01E02 - The One with the Sonogram at the End",
-    "actualizado": "2026-11-24"
+    "actualizado": "2026-11-26"
   },
   "vocabulario": [
+    {
+      "id": "v_d22_3",
+      "dia": 22,
+      "episodio": "S01E02",
+      "en": "Smell",
+      "es": "Olor",
+      "ejemplo": "Trying to get the mastodon smell out of the carpet!",
+      "ejemplo_es": "¡Tratando de quitar el olor a mastodonte de la alfombra!",
+      "fonetica": "smél"
+    },
+    {
+      "id": "v_d22_2",
+      "dia": 22,
+      "episodio": "S01E02",
+      "en": "It's just that...",
+      "es": "Es solo que...",
+      "ejemplo": "It's just that—doesn't she seem a little angry?",
+      "ejemplo_es": "Es solo que... ¿no te parece que se ve un poco enojada?",
+      "fonetica": "its-yást-dat"
+    },
+    {
+      "id": "v_d22_1",
+      "dia": 22,
+      "episodio": "S01E02",
+      "en": "Getting kinda close",
+      "es": "Acercándose un poco",
+      "ejemplo": "Gee, that glacier's getting kinda close.",
+      "ejemplo_es": "Caramba, ese glaciar se está acercando un poco.",
+      "fonetica": "ge-rin-káin-da-klóus"
+    },
     {
       "id": "v_d21_1",
       "dia": 21,
@@ -14,7 +44,8 @@
       "en": "That's not why",
       "es": "Esa no es la razón por la que...",
       "ejemplo": "That's not why I'm calling you.",
-      "ejemplo_es": "Esa no es la razón por la que te estoy llamando."
+      "ejemplo_es": "Esa no es la razón por la que te estoy llamando.",
+      "fonetica": "dats-nat-uái"
     },
     {
       "id": "v_d21_2",
@@ -23,7 +54,8 @@
       "en": "Otherwise",
       "es": "De lo contrario / Si no...",
       "ejemplo": "Otherwise next time you're gonna find yourself sitting at home.",
-      "ejemplo_es": "De lo contrario, la próxima vez te vas a quedar sentado en casa."
+      "ejemplo_es": "De lo contrario, la próxima vez te vas a quedar sentado en casa.",
+      "fonetica": "o-der-uáis"
     },
     {
       "id": "v_d19_1",
@@ -32,7 +64,8 @@
       "en": "Crash on the couch",
       "es": "Quedarse a dormir en el sofá",
       "ejemplo": "You gonna crash on the couch?",
-      "ejemplo_es": "¿Te vas a quedar a dormir en el sofá?"
+      "ejemplo_es": "¿Te vas a quedar a dormir en el sofá?",
+      "fonetica": "krash-an-da-káuch"
     },
     {
       "id": "v_d19_2",
@@ -41,7 +74,8 @@
       "en": "I had a major crush on you",
       "es": "Me gustabas muchísimo / estaba loquito por ti",
       "ejemplo": "In high school, I had a major crush on you.",
-      "ejemplo_es": "En la secundaria me gustabas muchísimo."
+      "ejemplo_es": "En la secundaria me gustabas muchísimo.",
+      "fonetica": "ái-had-a-méi-yer-krash-an-iú"
     },
     {
       "id": "v_d18_1",
@@ -50,7 +84,8 @@
       "en": "Give someone a break",
       "es": "Darle un respiro / una tregua a alguien (no presionar)",
       "ejemplo": "Give her a break, it's hard being on your own for the first time.",
-      "ejemplo_es": "Dale un respiro, es difícil estar por tu cuenta por primera vez."
+      "ejemplo_es": "Dale un respiro, es difícil estar por tu cuenta por primera vez.",
+      "fonetica": "guiv-sam-uán-a-bréik"
     },
     {
       "id": "v_d18_2",
@@ -59,7 +94,8 @@
       "en": "On your own",
       "es": "Por tu cuenta / solo",
       "ejemplo": "It's hard being on your own for the first time.",
-      "ejemplo_es": "Es difícil estar por tu cuenta por primera vez."
+      "ejemplo_es": "Es difícil estar por tu cuenta por primera vez.",
+      "fonetica": "an-iór-óun"
     },
     {
       "id": "v_d18_3",
@@ -68,7 +104,8 @@
       "en": "It sucks",
       "es": "Es una porquería / Qué mal / Apesta",
       "ejemplo": "Welcome to the real world! It sucks. You're gonna love it!",
-      "ejemplo_es": "¡Bienvenida al mundo real! Apesta. ¡Te va a encantar!"
+      "ejemplo_es": "¡Bienvenida al mundo real! Apesta. ¡Te va a encantar!",
+      "fonetica": "it-saks"
     },
     {
       "id": "v_d17_1",
@@ -77,7 +114,8 @@
       "en": "Laughed out of twelve interviews",
       "es": "Se me rieron en la cara en doce entrevistas",
       "ejemplo": "Are you kidding? I was laughed out of twelve interviews today.",
-      "ejemplo_es": "¿Estás bromeando? Hoy se me rieron en la cara en doce entrevistas."
+      "ejemplo_es": "¿Estás bromeando? Hoy se me rieron en la cara en doce entrevistas.",
+      "fonetica": "láft-áut-av-tuélv-ín-ter-viuz"
     },
     {
       "id": "v_d17_2",
@@ -86,7 +124,8 @@
       "en": "Upbeat",
       "es": "Optimista / animado / con energía positiva",
       "ejemplo": "And yet you're surprisingly upbeat.",
-      "ejemplo_es": "Y aún así estás sorprendentemente animada."
+      "ejemplo_es": "Y aún así estás sorprendentemente animada.",
+      "fonetica": "áp-biit"
     },
     {
       "id": "v_d16_1",
@@ -95,7 +134,8 @@
       "en": "Why would anybody...?",
       "es": "¿Por qué alguien haría...?",
       "ejemplo": "Why would anybody do something like that?",
-      "ejemplo_es": "¿Por qué alguien haría algo así?"
+      "ejemplo_es": "¿Por qué alguien haría algo así?",
+      "fonetica": "uái-wúd-é-ni-bó-di"
     },
     {
       "id": "v_d15_1",
@@ -104,7 +144,8 @@
       "en": "Slept with a hanger in your mouth",
       "es": "Tener una sonrisa gigante de oreja a oreja",
       "ejemplo": "You look like you slept with a hanger in your mouth.",
-      "ejemplo_es": "Parece que hubieras dormido con un gancho de ropa en la boca."
+      "ejemplo_es": "Parece que hubieras dormido con un gancho de ropa en la boca.",
+      "fonetica": "slépt-uíd-a-hán-guer-ín-iór-máut"
     },
     {
       "id": "v_d14_1",
@@ -113,7 +154,8 @@
       "en": "What the hell...?",
       "es": "¿Qué diablos / qué carajos...?",
       "ejemplo": "What the hell do you do on a real date?",
-      "ejemplo_es": "¿Qué diablos haces en una cita de verdad?"
+      "ejemplo_es": "¿Qué diablos haces en una cita de verdad?",
+      "fonetica": "uát-da-jél"
     },
     {
       "id": "v_d14_2",
@@ -122,7 +164,8 @@
       "en": "I will not take this abuse",
       "es": "No voy a tolerar este abuso / estas burlas",
       "ejemplo": "I will not take this abuse.",
-      "ejemplo_es": "No voy a tolerar este abuso."
+      "ejemplo_es": "No voy a tolerar este abuso.",
+      "fonetica": "ái-uíl-nát-téik-dís-a-biús"
     },
     {
       "id": "v_d13_1",
@@ -131,7 +174,8 @@
       "en": "Get it together",
       "es": "Recomponerse / organizarse / controlarse",
       "ejemplo": "Even if I could get it together enough to ask a woman out...",
-      "ejemplo_es": "Incluso si pudiera recomponerme lo suficiente como para invitar a salir a una mujer..."
+      "ejemplo_es": "Incluso si pudiera recomponerme lo suficiente como para invitar a salir a una mujer...",
+      "fonetica": "guét-it-tu-gué-der"
     },
     {
       "id": "v_d13_2",
@@ -140,7 +184,8 @@
       "en": "Be on a roll",
       "es": "Estar en racha / estar embalado",
       "ejemplo": "While you're on a roll, make a Western omelet.",
-      "ejemplo_es": "Ya que estás en racha, prepárate un omelet."
+      "ejemplo_es": "Ya que estás en racha, prepárate un omelet.",
+      "fonetica": "bi-án-a-ról"
     },
     {
       "id": "v_d12_1",
@@ -149,7 +194,8 @@
       "en": "What were you gonna say?",
       "es": "¿Qué ibas a decir?",
       "ejemplo": "What were you gonna say?",
-      "ejemplo_es": "¿Qué ibas a decir?"
+      "ejemplo_es": "¿Qué ibas a decir?",
+      "fonetica": "uát-uér-iú-gá-na-séi"
     },
     {
       "id": "v_d12_2",
@@ -158,7 +204,8 @@
       "en": "I'm glad you...",
       "es": "Me alegro de que hayas...",
       "ejemplo": "I'm glad you smashed her watch!",
-      "ejemplo_es": "¡Me alegro de que le hayas destrozado el reloj!"
+      "ejemplo_es": "¡Me alegro de que le hayas destrozado el reloj!",
+      "fonetica": "áim-glád-iú"
     },
     {
       "id": "v_d11_1",
@@ -167,7 +214,8 @@
       "en": "Grab a spoon",
       "es": "Tomar una cuchara (aprovechar las oportunidades / lanzarse)",
       "ejemplo": "Welcome back to the world! Grab a spoon!",
-      "ejemplo_es": "¡Bienvenido de vuelta al mundo! ¡Atrévete / lánzate!"
+      "ejemplo_es": "¡Bienvenido de vuelta al mundo! ¡Atrévete / lánzate!",
+      "fonetica": "gráb-a-spún"
     },
     {
       "id": "v_d10_1",
@@ -176,7 +224,8 @@
       "en": "Get through it",
       "es": "Superarlo / atravesar un momento difícil",
       "ejemplo": "How did you get through it?",
-      "ejemplo_es": "¿Cómo lo superaste?"
+      "ejemplo_es": "¿Cómo lo superaste?",
+      "fonetica": "guét-zrú-it"
     },
     {
       "id": "v_d10_2",
@@ -185,7 +234,8 @@
       "en": "Actually",
       "es": "De verdad / en realidad / en serio (NO 'actualmente')",
       "ejemplo": "You actually broke her watch?",
-      "ejemplo_es": "¿De verdad le rompiste el reloj?"
+      "ejemplo_es": "¿De verdad le rompiste el reloj?",
+      "fonetica": "ák-chu-a-li"
     },
     {
       "id": "v_d10_3",
@@ -194,7 +244,8 @@
       "en": "Steer clear of",
       "es": "Mantenerse alejado de alguien",
       "ejemplo": "Ooh, steer clear of you.",
-      "ejemplo_es": "Uy, mejor mantenerse alejado de ti."
+      "ejemplo_es": "Uy, mejor mantenerse alejado de ti.",
+      "fonetica": "stíir-klíir-ov"
     },
     {
       "id": "v_d9_1",
@@ -203,7 +254,8 @@
       "en": "Let me ask you a question",
       "es": "Déjame hacerte una pregunta",
       "ejemplo": "Let me ask you a question.",
-      "ejemplo_es": "Déjame hacerte una pregunta."
+      "ejemplo_es": "Déjame hacerte una pregunta.",
+      "fonetica": "let-mi-ask-yu-a-kués-chan"
     },
     {
       "id": "v_d9_2",
@@ -212,7 +264,8 @@
       "en": "I should have known",
       "es": "Debí haberlo sabido / Me lo hubiera imaginado",
       "ejemplo": "I should have known.",
-      "ejemplo_es": "Debí haberlo sabido."
+      "ejemplo_es": "Debí haberlo sabido.",
+      "fonetica": "ái-shud-av-nóun"
     },
     {
       "id": "v_d9_3",
@@ -221,7 +274,8 @@
       "en": "You got screwed",
       "es": "Te jodieron / Saliste perdiendo",
       "ejemplo": "You got screwed.",
-      "ejemplo_es": "Te jodieron / Saliste perdiendo."
+      "ejemplo_es": "Te jodieron / Saliste perdiendo.",
+      "fonetica": "yu-gát-skrúud"
     },
     {
       "id": "v_d8_1",
@@ -230,7 +284,8 @@
       "en": "What're you up to tonight?",
       "es": "¿Qué planes tienes para hoy en la noche?",
       "ejemplo": "What're you up to tonight?",
-      "ejemplo_es": "¿Qué planes tienes para hoy en la noche?"
+      "ejemplo_es": "¿Qué planes tienes para hoy en la noche?",
+      "fonetica": "uát-er-yu-áp-tu-ta-náit"
     },
     {
       "id": "v_d8_2",
@@ -239,7 +294,8 @@
       "en": "I wish I could, but I don't want to",
       "es": "Ojalá pudiera, pero no quiero",
       "ejemplo": "Oh, I wish I could, but I don't want to.",
-      "ejemplo_es": "Oh, ojalá pudiera, pero no quiero."
+      "ejemplo_es": "Oh, ojalá pudiera, pero no quiero.",
+      "fonetica": "ái-uích-ái-kud-bat-ái-dóunt-uánt-tu"
     },
     {
       "id": "v_d7_1",
@@ -248,7 +304,8 @@
       "en": "Ask someone out",
       "es": "Invitar a salir a alguien (cita)",
       "ejemplo": "He finally asked you out?",
-      "ejemplo_es": "¿Por fin te invitó a salir?"
+      "ejemplo_es": "¿Por fin te invitó a salir?",
+      "fonetica": "ásk-sam-uán-áut"
     },
     {
       "id": "v_d7_2",
@@ -257,7 +314,8 @@
       "en": "I didn't catch your name",
       "es": "No alcancé a escuchar tu nombre / ¿Cómo dijiste que te llamas?",
       "ejemplo": "I'm sorry, I didn't catch your name.",
-      "ejemplo_es": "Disculpa, no alcancé a escuchar tu nombre."
+      "ejemplo_es": "Disculpa, no alcancé a escuchar tu nombre.",
+      "fonetica": "ai-díd-ent-kátch-iòr-néim"
     },
     {
       "id": "v_d6_1",
@@ -266,7 +324,8 @@
       "en": "Hit on someone",
       "es": "Coquetear / ligar con alguien",
       "ejemplo": "Joey, stop hitting on her!",
-      "ejemplo_es": "¡Joey, deja de coquetear con ella!"
+      "ejemplo_es": "¡Joey, deja de coquetear con ella!",
+      "fonetica": "jít-an-sám-uan"
     },
     {
       "id": "v_d5_1",
@@ -275,7 +334,8 @@
       "en": "It matters to me",
       "es": "A mí sí me importa",
       "ejemplo": "Well, it matters to me!",
-      "ejemplo_es": "¡Bueno, a mí sí me importa!"
+      "ejemplo_es": "¡Bueno, a mí sí me importa!",
+      "fonetica": "ít-má-terz-tu-mí"
     },
     {
       "id": "v_d4_1",
@@ -284,7 +344,8 @@
       "en": "Kinda (kind of)",
       "es": "Como que / un poco / más o menos",
       "ejemplo": "I was kinda hoping that wouldn't be an issue.",
-      "ejemplo_es": "Como que esperaba que eso no fuera un problema."
+      "ejemplo_es": "Como que esperaba que eso no fuera un problema.",
+      "fonetica": "káin-da"
     },
     {
       "id": "v_d3_1",
@@ -293,7 +354,8 @@
       "en": "How should I know?",
       "es": "¿Cómo voy a saberlo? / ¿Yo qué sé?",
       "ejemplo": "How should I know?",
-      "ejemplo_es": "¿Cómo voy a saberlo?"
+      "ejemplo_es": "¿Cómo voy a saberlo?",
+      "fonetica": "jáu-shúd-ai-nóu"
     },
     {
       "id": "v_d3_2",
@@ -302,7 +364,8 @@
       "en": "Did I say that out loud?",
       "es": "¿Dije eso en voz alta?",
       "ejemplo": "Did I say that out loud?",
-      "ejemplo_es": "¿Dije eso en voz alta?"
+      "ejemplo_es": "¿Dije eso en voz alta?",
+      "fonetica": "díd-ai-sé-dát-áut-láud"
     },
     {
       "id": "v_d2_1",
@@ -311,10 +374,47 @@
       "en": "To hell with her",
       "es": "Al diablo con ella",
       "ejemplo": "To hell with her, she left me!",
-      "ejemplo_es": "¡Al diablo con ella, ella me dejó!"
+      "ejemplo_es": "¡Al diablo con ella, ella me dejó!",
+      "fonetica": "tu-jél-uíth-jer"
     }
   ],
   "frases": [
+    {
+      "id": "f_d22_2",
+      "dia": 22,
+      "episodio": "S01E02",
+      "personaje": "Ross",
+      "en": "How about I'll, uh, catch up with you in the Ice Age.",
+      "es": "¿Qué tal si, eh, te alcanzo en la Era de Hielo?",
+      "bloques": [
+        {
+          "en": "How about I'll, uh,",
+          "fonetica": "jáu-a-báut-áil-a"
+        },
+        {
+          "en": "catch up with you in the Ice Age.",
+          "fonetica": "kách-ap-wid-yu-in-di-áis-eich"
+        }
+      ]
+    },
+    {
+      "id": "f_d22_1",
+      "dia": 22,
+      "episodio": "S01E02",
+      "personaje": "Ross",
+      "en": "They have issues like 'Gee, that glacier's getting kinda close.'",
+      "es": "Tienen problemas como: \"Caramba, ese glaciar se está acercando un poco\".",
+      "bloques": [
+        {
+          "en": "They have issues like",
+          "fonetica": "dei-jav-í-shus-laik"
+        },
+        {
+          "en": "'Gee, that glacier's getting kinda close.'",
+          "fonetica": "yí-dat-gléi-shers-ge-rin-káin-da-klóus"
+        }
+      ]
+    },
     {
       "id": "f_d21_1",
       "dia": 21,
@@ -833,6 +933,24 @@
     }
   ],
   "gramatica": [
+    {
+      "id": "g_d22_1",
+      "dia": 22,
+      "episodio": "S01E02",
+      "titulo": "Preguntas negativas para confirmar o mostrar sorpresa: Isn't...? / Doesn't...?",
+      "uso": "Sirve cuando ya sospechas la respuesta o te sorprende algo y buscas confirmación (como decir \"¿No te parece que...?\" o \"¿Acaso no es...?\").",
+      "formula": "[Auxiliar negativo: Isn't / Doesn't / Don't] + [Sujeto] + [Verbo o Complemento]?",
+      "ejemplos": [
+        {
+          "en": "Doesn't she seem a little angry?",
+          "es": "¿No te parece que se ve un poco enojada?"
+        },
+        {
+          "en": "Isn't that your ex-wife?",
+          "es": "¿Esa no es tu exesposa?"
+        }
+      ]
+    },
     {
       "id": "g_d21_1",
       "dia": 21,
